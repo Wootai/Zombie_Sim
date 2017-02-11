@@ -1,7 +1,7 @@
 float hsize = 10; //<>//
 float cstart = 100;
 float hstart = 5;
-float zstart = 3;
+float zstart = 15;
 
 Common c;
 Hero h;
@@ -17,7 +17,7 @@ void setup() {
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
-
+  // testing
 
   for (int i = 0; i < cstart; i++) {
     c = new Common();
@@ -39,10 +39,12 @@ void draw() {
   background(51);
 
   display();
-  for (Common c : commons) {
-    c.move();
-  }
+  animate();
 }
+
+
+
+
 
 
 void display() {
@@ -55,4 +57,25 @@ void display() {
   for (Zombie z : zombies) {
     z.show();
   }
+}
+
+
+
+
+void animate() {
+  for (Common c : commons) {
+    c.move();
+  }
+  for (Zombie z : zombies) {
+    z.move();
+  }
+  for (Hero h : heroes) {
+    h.move();
+  }  
+}
+
+
+
+boolean edges(float x, float y) {
+  return (x + hsize > width || x - hsize < 0 || y + hsize > height || y - hsize < 0);
 }

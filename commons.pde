@@ -4,30 +4,34 @@ class Common {
   PVector direction = PVector.random2D();
 
   void move() {
-    if (edges()) {
-      direction.rotate(HALF_PI);
+    if (edges(pos.x, pos.y)) {
+      direction.rotate(PI);
+      pos.add(direction);
+      pos.add(direction);
     }
 
     float r1 = random(1);
-    if (r1 < 0.01) {
-      direction.rotate(PI/6);
+    if (r1 < 0.05) {
+      direction.rotate(random(-PI/6,PI/6));
     }
 
     for (Zombie z : zombies) {
       float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-      if (d < 5*hsize) {
-        float r2 = random(2*PI/3, 5*PI/3);
-        direction.rotate(r2);
+      if (d < 6*hsize) {
+        PVector CZ = new PVector();
+        CZ.set(pos); CZ.sub(z.pos); CZ.rotate(random(-PI/6,PI/6)); CZ.normalize();
+        direction = CZ;
       }
     }
     pos.add(direction);
+    //if (edges(pos.x, pos.y)) {
+    //  pos.set(width/2, height/2);  
+    //}
   }
 
 
 
-  boolean edges() {
-    return (pos.x + hsize > width || pos.x - hsize < 0 || pos.y + hsize > height || pos.y - hsize < 0);
-  }
+
 
 
 
