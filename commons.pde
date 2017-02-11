@@ -4,26 +4,31 @@ class Common {
   PVector direction = PVector.random2D();
 
   void move() {
-    if (edges(pos.x, pos.y)) {
-      direction.rotate(PI);
-      pos.add(direction);
-      pos.add(direction);
-    }
-
-    float r1 = random(1);
-    if (r1 < 0.05) {
-      direction.rotate(random(-PI/6,PI/6));
-    }
-
-    for (Zombie z : zombies) {
-      float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-      if (d < 6*hsize) {
-        PVector CZ = new PVector();
-        CZ.set(pos); CZ.sub(z.pos); CZ.rotate(random(-PI/6,PI/6)); CZ.normalize();
-        direction = CZ;
+    if (visible) {
+      if (edges(pos.x, pos.y)) {
+        direction.rotate(PI);
+        pos.add(direction);
+        pos.add(direction);
       }
+
+      float r1 = random(1);
+      if (r1 < 0.05) {
+        direction.rotate(random(-PI/6, PI/6));
+      }
+
+      for (Zombie z : zombies) {
+        float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
+        if (d < 6*hsize) {
+          PVector CZ = new PVector();
+          CZ.set(pos); 
+          CZ.sub(z.pos); 
+          CZ.rotate(random(-PI/6, PI/6)); 
+          CZ.normalize();
+          direction = CZ;
+        }
+      }
+      pos.add(direction);
     }
-    pos.add(direction);
     //if (edges(pos.x, pos.y)) {
     //  pos.set(width/2, height/2);  
     //}
@@ -36,7 +41,10 @@ class Common {
 
 
   void show() {
-    fill(0, 255, 0);
-    ellipse(pos.x, pos.y, hsize, hsize);
+
+    if (visible) {
+      fill(0, 255, 0);
+      ellipse(pos.x, pos.y, hsize, hsize);
+    }
   }
 }
