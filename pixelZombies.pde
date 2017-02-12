@@ -1,7 +1,9 @@
-float hsize = 10; //<>//
+float hsize = 10; //<>// //<>//
 float cstart = 100;
 float hstart = 5;
 float zstart = 5;
+int hwincount = 0;
+int zwincount = 0;
 
 Common c;
 Hero h;
@@ -38,15 +40,24 @@ void setup() {
 
 void draw() {
   background(51);
+  fill(255);
+  text("Zombies " + str(zwincount) + "-" + str(hwincount) + " Humans", 10, 24);
 
   display();
+
   animate();
-  nostack();
+  stacking();
+
   bitten();
-  
-  if (commons.size() == 0 && heroes.size() == 0) {
-     println("Zombies win");
-     setup(); 
+
+
+  if (heroes.size() == 0) {
+    zwincount++;
+    setup();
+  }
+  if (zombies.size() == 0) {
+    hwincount++;
+    setup();
   }
 }
 
@@ -75,6 +86,7 @@ void animate() {
   }
   for (Hero h : heroes) {
     h.move();
+    h.shoot();
   }
 }
 
@@ -83,7 +95,7 @@ void bitten() {
   for (int i = commons.size() - 1; i >= 0; i--) {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
-      if (d < 1.5 * hsize) {
+      if (d < hsize) {
         z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
         zombies.add(z);
 
@@ -98,7 +110,7 @@ void bitten() {
   for (int i = heroes.size() - 1; i >= 0; i--) {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
-      if (d < 1.5 * hsize) {
+      if (d < hsize) {
         z = new Zombie(heroes.get(i).pos.x, heroes.get(i).pos.y);
         zombies.add(z);
 
@@ -110,14 +122,22 @@ void bitten() {
     }
   }
 }
-void nostack() {
-  for (Zombie z : zombies) {
-    for (Zombie other : zombies) {
-      if (z != other && z != null) {
-        float d = dist(z.pos.x, z.pos.y, other.pos.x, other.pos.y); 
-        if (d < 0.4*hsize) {
-          other.pos.sub(other.direction);
-        }
+
+
+void trajectory(float x1, float y1, float x2, float y2) {
+  stroke(167, 240, 44);
+  strokeWeight(2);
+  line(x1, y1, x2, y2);
+}
+
+void stacking() {
+  for (int i = 0; i < zombies.size() - 1; i++) {
+    for (int j = i + 1; j < zombies.size(); j++) {
+      float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
+      if (d < 0.5*hsize) {
+        
+        zombies.get(i).direction.rotate(PI / 2);
+        zombies.get(i).pos.add(zombies.get(i).direction);
       }
     }
   }

@@ -5,10 +5,9 @@ class Zombie {
   float speed = 1.2;
 
   Zombie(float x, float y) {
-    pos.set(x,y);
-      
+    pos.set(x, y);
   }
-  
+
   void move() {
 
     if (edges(pos.x, pos.y)) {
@@ -34,7 +33,7 @@ class Zombie {
       }
     }
 
-    
+
     for (Hero h : heroes) {
       float d = dist(pos.x, pos.y, h.pos.x, h.pos.y);
       if (d < mindist) {
@@ -47,12 +46,20 @@ class Zombie {
     PVector ZP = new PVector(minx - pos.x, miny - pos.y);
     direction = ZP;
     direction.setMag(speed);
+
+    float r1 = random(1);
+    if (r1 < 0.1) {
+      direction.rotate(random(-PI/6, PI/6));
+    }
+
     pos.add(direction);
   }
 
 
   void show() {
     fill(255, 0, 0);
+    strokeWeight(1);
+    stroke(0);
     ellipse(pos.x, pos.y, hsize, hsize);
   }
 }

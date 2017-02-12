@@ -29,9 +29,7 @@ class Common {
       }
       pos.add(direction);
     }
-    //if (edges(pos.x, pos.y)) {
-    //  pos.set(width/2, height/2);  
-    //}
+
   }
 
 
@@ -44,6 +42,8 @@ class Common {
 
     if (visible) {
       fill(0, 255, 0);
+      stroke(0);
+      strokeWeight(1);
       ellipse(pos.x, pos.y, hsize, hsize);
     }
   }
