@@ -2,8 +2,8 @@ class Hero {
   PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
   boolean visible = true;
   PVector direction = PVector.random2D();
-  float firerange = 100; // Number of pixels
-  float firespeed = 25; // Number of frames between shots
+  float firerange = 80; // Number of pixels
+  float firespeed = 20; // Number of frames between shots
   float movespeed = 0.6; 
 
 
@@ -46,10 +46,13 @@ class Hero {
          trajectory(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
          
          zombies.remove(i);
+         
          break;
       }
     }
   }
+
+
 
   void show() {
     if (visible) {

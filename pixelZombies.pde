@@ -1,6 +1,6 @@
 float hsize = 10; //<>// //<>//
-float cstart = 100;
-float hstart = 5;
+float cstart = 200;
+float hstart = 7;
 float zstart = 5;
 int hwincount = 0;
 int zwincount = 0;
@@ -42,7 +42,10 @@ void draw() {
   background(51);
   fill(255);
   text("Zombies " + str(zwincount) + "-" + str(hwincount) + " Humans", 10, 24);
-
+  text("Commons: " + str(commons.size()), 10, height - 39);
+  text("Heroes: " + str(heroes.size()), 10, height - 26);
+  text("Zombies: " + str(zombies.size()), 10, height - 13);
+  
   display();
 
   animate();
@@ -126,7 +129,7 @@ void bitten() {
 
 void trajectory(float x1, float y1, float x2, float y2) {
   stroke(167, 240, 44);
-  strokeWeight(2);
+  strokeWeight(4);
   line(x1, y1, x2, y2);
 }
 
