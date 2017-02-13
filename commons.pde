@@ -18,13 +18,13 @@ class Common {
 
       for (Zombie z : zombies) {
         float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-        if (d < 6*hsize) {
+        if (d < 10*hsize) {
           PVector CZ = new PVector();
           CZ.set(pos); 
           CZ.sub(z.pos); 
           CZ.rotate(random(-PI/6, PI/6)); 
           CZ.normalize();
-          direction = CZ;
+          direction.set(CZ);
         }
       }
       pos.add(direction);

@@ -3,7 +3,7 @@ class Hero {
   boolean visible = true;
   PVector direction = PVector.random2D();
   float firerange = 80; // Number of pixels
-  float firespeed = 20; // Number of frames between shots
+  float firespeed = 4; // Number of frames between shots
   float movespeed = 0.6; 
 
 
@@ -31,7 +31,7 @@ class Hero {
           CZ.sub(z.pos); 
           CZ.rotate(random(-PI/6, PI/6)); 
           CZ.normalize();
-          direction = CZ;
+          direction.set(CZ);
         }
       }
 

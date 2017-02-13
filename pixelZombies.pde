@@ -1,6 +1,6 @@
 float hsize = 10; //<>// //<>//
-float cstart = 200;
-float hstart = 7;
+float cstart = 700;
+float hstart = 6;
 float zstart = 5;
 int hwincount = 0;
 int zwincount = 0;
@@ -14,7 +14,7 @@ ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
 
 void setup() {
-  size(800, 600, P2D);
+  size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
@@ -139,7 +139,7 @@ void stacking() {
       float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < 0.5*hsize) {
         
-        zombies.get(i).direction.rotate(PI / 2);
+        zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
         zombies.get(i).pos.add(zombies.get(i).direction);
       }
     }
