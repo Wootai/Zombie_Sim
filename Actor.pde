@@ -26,11 +26,12 @@ class Actor {
  //----- ZOMBIE SPECIFIC PROPERTIES ----//
     float zombieSpeed = 1.2;
     
-    Actor(boolean z, boolean c, boolean h,){
+    Actor(boolean z, boolean c, boolean h){
         if(z){isZombie = true;}
         if(c){isCommon = true;}
         if(h){isHero = true;}
-    }
+      }
+    
     
     
     void commonMove() {
@@ -47,7 +48,7 @@ class Actor {
             direction.rotate(random(-PI/6, PI/6));
         }
 
-        for (Zombie z : zombies) {
+        for (Actor z : zombies) {
             float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
                 if (d < 10*hsize) {
                   PVector CZ = new PVector();
@@ -85,7 +86,7 @@ class Actor {
             direction.rotate(random(-PI/6, PI/6));
           }
 
-          for (Zombie z : zombies) {
+          for (Actor z : zombies) {
             float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
             if (d < 6*hsize) {
               PVector CZ = new PVector();
@@ -122,7 +123,7 @@ class Actor {
           ellipse(pos.x, pos.y, hsize, hsize);
         }
       }
-    }
+    
 
     void zombieMove() {
         if (edges(pos.x, pos.y)) {
@@ -137,7 +138,7 @@ class Actor {
         float minx = 0;
         float miny = 0;
 
-        for (Common c : commons) {
+        for (Actor c : commons) {
           if (c.visible) {
             float d = dist(pos.x, pos.y, c.pos.x, c.pos.y);
             if (d < mindist) {
@@ -148,7 +149,7 @@ class Actor {
           }
         }
 
-        for (Hero h : heroes) {
+        for (Actor h : heroes) {
           float d = dist(pos.x, pos.y, h.pos.x, h.pos.y);
           if (d < mindist) {
             mindist = d;
@@ -159,7 +160,7 @@ class Actor {
 
         PVector ZP = new PVector(minx - pos.x, miny - pos.y);
         direction = ZP;
-        direction.setMag(speed);
+        direction.setMag(zombieSpeed);
 
         float r1 = random(1);
         if (r1 < 0.1) {
@@ -174,5 +175,6 @@ class Actor {
         strokeWeight(1);
         stroke(0);
         ellipse(pos.x, pos.y, hsize, hsize);
-      }
-    }
+     }
+  
+}
