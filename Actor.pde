@@ -1,9 +1,29 @@
-class Common {
+class Actor {
   PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
   boolean visible = true;
   PVector direction = PVector.random2D();
+  
+  //----- HERO PROPERTIES ------//
+  //PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
+  //boolean visible = true;
+  //PVector direction = PVector.random2D();
+  
+  //----- HERO SPECIFIC PROPERTIES ------//
+  float firerange = 80; // Number of pixels
+  float firespeed = 4; // Number of frames between shots
+  float movespeed = 0.6; 
+  
+  //----- ZOMBIE PROPERTIES  ----------// 
+  //PVector pos = new PVector();
+  //boolean visible = true;
+  //PVector direction = PVector.random2D();
+  
+  float zombieSpeed = 1.2;
 
-  void move() {
+ 
+ 
+  
+  void commonMove() {
     if (visible) {
       if (edges(pos.x, pos.y)) {
         direction.rotate(PI);
@@ -32,29 +52,17 @@ class Common {
 
   }
 
-  void show() {
-
-    if (visible) {
+ 
+void commonShow() {
+  if (visible) {
       fill(0, 255, 0);
       stroke(0);
       strokeWeight(1);
       ellipse(pos.x, pos.y, hsize, hsize);
     }
   }
-}
 
-class Hero {
-  PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
-  boolean visible = true;
-  PVector direction = PVector.random2D();
-  float firerange = 80; // Number of pixels
-  float firespeed = 4; // Number of frames between shots
-  float movespeed = 0.6; 
-
-
-
-  void move() {
-
+void heroMove() {
     if (visible) {
       direction.setMag(movespeed);
       if (edges(pos.x, pos.y)) {
@@ -84,7 +92,7 @@ class Hero {
     }
   }
 
-  void shoot() {
+void heroShoot() {
     for (int i = zombies.size() - 1; i >= 0; i--) {
       float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
       if (d < firerange && frameCount % firespeed == 0) {
@@ -97,9 +105,7 @@ class Hero {
     }
   }
 
-
-
-  void show() {
+void heroShow() {
     if (visible) {
       fill(0, 0, 255);
       stroke(0);
@@ -109,24 +115,21 @@ class Hero {
   }
 }
 
-class Zombie {
-  PVector pos = new PVector();
-  boolean visible = true;
-  PVector direction = PVector.random2D();
-  float speed = 1.2;
 
+
+class Zombie {
+ 
   Zombie(float x, float y) {
     pos.set(x, y);
   }
 
-  void move() {
+  void zombieMove() {
 
     if (edges(pos.x, pos.y)) {
       direction.rotate(HALF_PI);
       pos.add(direction);
       pos.add(direction);
     }
-
 
     // Moving the zombie towards its closest pray
     float mindist = height * width; 
@@ -143,7 +146,6 @@ class Zombie {
         }
       }
     }
-
 
     for (Hero h : heroes) {
       float d = dist(pos.x, pos.y, h.pos.x, h.pos.y);
@@ -167,7 +169,7 @@ class Zombie {
   }
 
 
-  void show() {
+  void zombieShow() {
     fill(255, 0, 0);
     strokeWeight(1);
     stroke(0);
