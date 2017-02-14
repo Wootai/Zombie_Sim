@@ -22,16 +22,16 @@ void setup() {
 
 
   for (int i = 0; i < cstart; i++) {
-    c = new Actor(false, true, false);
+    c = new Actor(1);
     commons.add(c);
   }
 
   for (int i = 0; i < hstart; i++) {
-    c = new Actor(false, false, true);
+    c = new Actor(2);
     heroes.add(c);
   }
   for (int i = 0; i < zstart; i++) {
-    c = new Actor(true, false, false);
+    c = new Actor(0);
     zombies.add(c);
   }
 }
@@ -92,8 +92,7 @@ void bitten() {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        commons.get(i).isZombie = true;
-        commons.get(i).isCommon = false;
+        commons.get(i).type = 0;
         zombies.add(commons.get(i));
         commons.remove(i);
         break;
@@ -105,8 +104,7 @@ void bitten() {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        heroes.get(i).isZombie = true;
-        heroes.get(i).isHero = false;
+        heroes.get(i).type = 0;
         zombies.add(heroes.get(i));
         heroes.remove(i);
         break;
