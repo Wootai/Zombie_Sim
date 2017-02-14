@@ -1,18 +1,12 @@
-float hsize = 10; //<>// //<>//
+float hsize = 10; //<>//
 float cstart = 700;
 float hstart = 6;
 float zstart = 5;
 int hwincount = 0;
 int zwincount = 0;
 
-//-- TO DO:
-//-- CREATE ACTOR CLASS
-//-- COMBINE HERO/COMMON/ZOMBIE INTO ONE CLASS
 
 Actor c;
-Actor h;
-Actor z;
-
 
 ArrayList<Actor> commons;
 ArrayList<Actor> heroes;
@@ -33,12 +27,12 @@ void setup() {
   }
 
   for (int i = 0; i < hstart; i++) {
-    h = new Actor(false, false, true);
-    heroes.add(h);
+    c = new Actor(false, false, true);
+    heroes.add(c);
   }
   for (int i = 0; i < zstart; i++) {
-    z = new Actor(true, false, false);
-    zombies.add(z);
+    c = new Actor(true, false, false);
+    zombies.add(c);
   }
 }
 
@@ -71,30 +65,27 @@ void draw() {
 
 void display() {
   for (Actor c : commons) {
-    c.commonShow();
+    c.show();
   }
   for (Actor h : heroes) {
-    h.heroShow();
+    h.show();
   }
   for (Actor z : zombies) {
-    z.zombieShow();
-  }
-}
-void animate() {
-  for (Actor c : commons) {
-    c.commonMove();
-  }
-  for (Actor z : zombies) {
-    z.zombieMove();
-  }
-  for (Actor h : heroes) {
-    h.heroMove();
-    h.heroShoot();
+    z.show();
   }
 }
 
-//-- TO DO:
-//-- INSTEAD OF VISIBILITY REMOVE COMMON FROM ARRAY LIST.
+void animate() {
+  for (Actor c : commons) {
+    c.move();
+  }
+  for (Actor z : zombies) {
+    z.move();
+  }
+  for (Actor h : heroes) {
+    h.move();
+  }
+}
 
 void bitten() {
   for (int i = commons.size() - 1; i >= 0; i--) {
@@ -105,10 +96,6 @@ void bitten() {
         commons.get(i).isCommon = false;
         zombies.add(commons.get(i));
         commons.remove(i);
-//        z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
-//        zombies.add(z);
-//        commons.get(i).visible = false;
-//        commons.remove(i);
         break;
       }
     }
@@ -122,21 +109,10 @@ void bitten() {
         heroes.get(i).isHero = false;
         zombies.add(heroes.get(i));
         heroes.remove(i);
-       // z = new Actor(heroes.get(i).pos.x, heroes.get(i).pos.y);
-       // zombies.add(z);
-       // heroes.get(i).visible = false;
-       // heroes.remove(i);
         break;
       }
     }
   }
-}
-
-
-void trajectory(float x1, float y1, float x2, float y2) {
-  stroke(167, 240, 44);
-  strokeWeight(4);
-  line(x1, y1, x2, y2);
 }
 
 void stacking() {
@@ -150,10 +126,4 @@ void stacking() {
       }
     }
   }
-}
-
-//-- TO DO: ADD EDGES FUNCTION TO ACTOR CLASS
-
-boolean edges(float x, float y) {
-  return (x + hsize > width || x - hsize < 0 || y + hsize > height || y - hsize < 0);
 }
