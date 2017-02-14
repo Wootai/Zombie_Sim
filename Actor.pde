@@ -1,7 +1,7 @@
 class Actor {
-    boolean isHero = false;
-    boolean isZombie = false;
-    boolean isCommon = false;
+    int type;
+    
+    //Zombie = 0 ; Common = 1 ; Hero = 2
     
     PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
     PVector direction = PVector.random2D();
@@ -13,15 +13,13 @@ class Actor {
     float zombieSpeed = 1.2;
     
 
-    Actor(boolean z, boolean c, boolean h){
-        if(z){isZombie = true;}
-        if(c){isCommon = true;}
-        if(h){isHero = true;}
+    Actor(int t){
+        type = t;
       }
     
     
     void move() {
-      if (isCommon) {
+      if (type == 1) {
           if (edges(pos.x, pos.y)) {
               direction.rotate(PI);
               pos.add(direction);
@@ -48,7 +46,7 @@ class Actor {
           pos.add(direction);
       }
     
-    if (isHero) {
+    if (type == 2) {
         direction.setMag(movespeed);
         if (edges(pos.x, pos.y)) {
           direction.rotate(PI);
@@ -77,7 +75,7 @@ class Actor {
         heroShoot();
       }
    
-   if(isZombie){
+   if(type == 0){
       if (edges(pos.x, pos.y)) {
           direction.rotate(HALF_PI);
           pos.add(direction);
@@ -91,7 +89,7 @@ class Actor {
       float miny = 0;
 
       for (Actor c : commons) {
-        if (c.isCommon) {
+        if (c.type == 1) {
           float d = dist(pos.x, pos.y, c.pos.x, c.pos.y);
           if (d < mindist) {
             mindist = d;
@@ -141,13 +139,13 @@ class Actor {
       stroke(0);
       strokeWeight(1);
    
-    if (isCommon) {
+    if (type == 1) {
         fill(0, 255, 0);
         }
-    if (isHero) {
+    if (type == 2) {
         fill(0, 0, 255);
       }
-    if (isZombie){
+    if (type == 0){
       fill(255, 0, 0);
      }
     
