@@ -1,18 +1,12 @@
-float hsize = 10; //<>// //<>//
+float hsize = 10; //<>//
 float cstart = 700;
 float hstart = 6;
 float zstart = 5;
 int hwincount = 0;
 int zwincount = 0;
 
-//-- TO DO:
-//-- CREATE ACTOR CLASS
-//-- COMBINE HERO/COMMON/ZOMBIE INTO ONE CLASS
 
-Common c;
-Hero h;
-Zombie z;
-
+Actor c;
 
 ArrayList<Actor> commons;
 ArrayList<Actor> heroes;
@@ -28,17 +22,17 @@ void setup() {
 
 
   for (int i = 0; i < cstart; i++) {
-    c = new Actor(false, true, false);
+    c = new Actor(1);
     commons.add(c);
   }
 
   for (int i = 0; i < hstart; i++) {
-    h = new Actor(false, false, true);
-    heroes.add(h);
+    c = new Actor(2);
+    heroes.add(c);
   }
   for (int i = 0; i < zstart; i++) {
-    z = new Zombie(true, false, false);
-    zombies.add(z);
+    c = new Actor(0);
+    zombies.add(c);
   }
 }
 
@@ -70,45 +64,37 @@ void draw() {
 }
 
 void display() {
-  for (Common c : commons) {
-    c.commonShow();
+  for (Actor c : commons) {
+    c.show();
   }
-  for (Hero h : heroes) {
-    h.heroShow();
+  for (Actor h : heroes) {
+    h.show();
   }
-  for (Zombie z : zombies) {
-    z.zombieShow();
-  }
-}
-void animate() {
-  for (Common c : commons) {
-    c.commonMove();
-  }
-  for (Zombie z : zombies) {
-    z.zombieMove();
-  }
-  for (Hero h : heroes) {
-    h.heroMove();
-    h.heroShoot();
+  for (Actor z : zombies) {
+    z.show();
   }
 }
 
-//-- TO DO:
-//-- INSTEAD OF VISIBILITY REMOVE COMMON FROM ARRAY LIST.
+void animate() {
+  for (Actor c : commons) {
+    c.move();
+  }
+  for (Actor z : zombies) {
+    z.move();
+  }
+  for (Actor h : heroes) {
+    h.move();
+  }
+}
 
 void bitten() {
   for (int i = commons.size() - 1; i >= 0; i--) {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        commons.get(i).isZombie = true;
-        commons.get(i).isCommon = false;
-        zombie.add(commons.get(i));
+        commons.get(i).type = 0;
+        zombies.add(commons.get(i));
         commons.remove(i);
-//        z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
-//        zombies.add(z);
-//        commons.get(i).visible = false;
-//        commons.remove(i);
         break;
       }
     }
@@ -118,21 +104,13 @@ void bitten() {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        z = new Zombie(heroes.get(i).pos.x, heroes.get(i).pos.y);
-        zombies.add(z);
-        heroes.get(i).visible = false;
+        heroes.get(i).type = 0;
+        zombies.add(heroes.get(i));
         heroes.remove(i);
         break;
       }
     }
   }
-}
-
-
-void trajectory(float x1, float y1, float x2, float y2) {
-  stroke(167, 240, 44);
-  strokeWeight(4);
-  line(x1, y1, x2, y2);
 }
 
 void stacking() {
@@ -146,10 +124,4 @@ void stacking() {
       }
     }
   }
-}
-
-//-- TO DO: ADD EDGES FUNCTION TO ACTOR CLASS
-
-boolean edges(float x, float y) {
-  return (x + hsize > width || x - hsize < 0 || y + hsize > height || y - hsize < 0);
 }

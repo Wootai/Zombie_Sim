@@ -1,91 +1,68 @@
 class Actor {
-    boolean isHero = false;
-    boolean isZombie = false;
-    boolean isCommon = false;
+    int type;
+    //Zombie = 0 ; Common = 1 ; Hero = 2
     
     PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
-    boolean visible = true;
     PVector direction = PVector.random2D();
  
- //----- HERO PROPERTIES ------//
- //PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
- //boolean visible = true;
- //PVector direction = PVector.random2D();
-  
- //----- HERO SPECIFIC PROPERTIES ------//
     float firerange = 80; // Number of pixels
     float firespeed = 4; // Number of frames between shots
     float movespeed = 0.6; 
   
- //----- ZOMBIE PROPERTIES  ----------// 
- //z = new Zombie(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
- //PVector pos = new PVector();
- //boolean visible = true;
- //PVector direction = PVector.random2D();
-  
- //----- ZOMBIE SPECIFIC PROPERTIES ----//
     float zombieSpeed = 1.2;
     
-    Actor(boolean z, boolean c, boolean h,){
-        if(z){isZombie = true;}
-        if(c){isCommon = true;}
-        if(h){isHero = true;}
-    }
+  //------Constructor
+  
+    Actor(int t){
+        type = t;
+      }
+      
+  //-----------------  
     
-    
-    void commonMove() {
-        if (visible) {
-            if (edges(pos.x, pos.y)) {
-                direction.rotate(PI);
-                pos.add(direction);
-                pos.add(direction);
-            }
-
-        float r1 = random(1);
-
-        if (r1 < 0.05) {
-            direction.rotate(random(-PI/6, PI/6));
-        }
-
-        for (Zombie z : zombies) {
-            float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-                if (d < 10*hsize) {
-                  PVector CZ = new PVector();
-                  CZ.set(pos); 
-                  CZ.sub(z.pos); 
-                  CZ.rotate(random(-PI/6, PI/6)); 
-                  CZ.normalize();
-                  direction.set(CZ);
-                }
-            }
-            pos.add(direction);
-        }
-    }
-
-    void commonShow() {
-        if (visible) {
-            fill(0, 255, 0);
-              stroke(0);
-              strokeWeight(1);
-              ellipse(pos.x, pos.y, hsize, hsize);
-            }
+    void move() {
+      switch(type){
+        
+        case 1:
+          if (edges(pos.x, pos.y)) {
+              direction.rotate(PI);
+              pos.add(direction);
+              pos.add(direction);
           }
 
-    void heroMove() {
-        if (visible) {
+          float r1 = random(1);
+
+          if (r1 < 0.05) {
+            direction.rotate(random(-PI/6, PI/6));
+          }
+
+          for (Actor z : zombies) {
+              float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
+                  if (d < 10*hsize) {
+                    PVector CZ = new PVector();
+                    CZ.set(pos); 
+                    CZ.sub(z.pos); 
+                    CZ.rotate(random(-PI/6, PI/6)); 
+                    CZ.normalize();
+                    direction.set(CZ);
+                  }
+              }
+          pos.add(direction);
+        break;
+           
+        case 2: 
           direction.setMag(movespeed);
           if (edges(pos.x, pos.y)) {
             direction.rotate(PI);
             pos.add(direction);
             pos.add(direction);
           }
-
-          float r1 = random(1);
+  
+          r1 = random(1);
           if (r1 < 0.01) {
             direction.rotate(random(-PI/6, PI/6));
           }
-
-          for (Zombie z : zombies) {
+  
+          for (Actor z : zombies) {
             float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
             if (d < 6*hsize) {
               PVector CZ = new PVector();
@@ -96,49 +73,26 @@ class Actor {
               direction.set(CZ);
             }
           }
-
+  
           pos.add(direction);
-        }
-      }
-
-    void heroShoot() {
-        for (int i = zombies.size() - 1; i >= 0; i--) {
-          float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-          if (d < firerange && frameCount % firespeed == 0) {
-             trajectory(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-
-             zombies.remove(i);
-
-             break;
-          }
-        }
-      }
-
-    void heroShow() {
-        if (visible) {
-          fill(0, 0, 255);
-          stroke(0);
-          strokeWeight(1);
-          ellipse(pos.x, pos.y, hsize, hsize);
-        }
-      }
-    }
-
-    void zombieMove() {
+          heroShoot();
+        break;
+     
+     case 0:
         if (edges(pos.x, pos.y)) {
             direction.rotate(HALF_PI);
             pos.add(direction);
             pos.add(direction);
         }
-
+  
         // Moving the zombie towards its closest pray
-
+  
         float mindist = height * width; 
         float minx = 0;
         float miny = 0;
-
-        for (Common c : commons) {
-          if (c.visible) {
+  
+        for (Actor c : commons) {
+          if (c.type == 1) {
             float d = dist(pos.x, pos.y, c.pos.x, c.pos.y);
             if (d < mindist) {
               mindist = d;
@@ -147,8 +101,8 @@ class Actor {
             }
           }
         }
-
-        for (Hero h : heroes) {
+  
+        for (Actor h : heroes) {
           float d = dist(pos.x, pos.y, h.pos.x, h.pos.y);
           if (d < mindist) {
             mindist = d;
@@ -156,23 +110,57 @@ class Actor {
             miny = h.pos.y;
           }
         }
-
+  
         PVector ZP = new PVector(minx - pos.x, miny - pos.y);
         direction = ZP;
-        direction.setMag(speed);
-
-        float r1 = random(1);
+        direction.setMag(zombieSpeed);
+  
+        r1 = random(1);
+        
         if (r1 < 0.1) {
           direction.rotate(random(-PI/6, PI/6));
         }
-
+  
         pos.add(direction);
-      }
+      break; 
+    }
+   
+}
+   
 
-    void zombieShow() {
-        fill(255, 0, 0);
-        strokeWeight(1);
-        stroke(0);
-        ellipse(pos.x, pos.y, hsize, hsize);
+  void heroShoot() {
+      for (int i = zombies.size() - 1; i >= 0; i--) {
+        float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
+        if (d < firerange && frameCount % firespeed == 0) {
+           stroke(167, 240, 44);
+           strokeWeight(4);
+           line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
+           zombies.remove(i);
+           break;
+        }
       }
     }
+
+  void show() {
+      stroke(0);
+      strokeWeight(1);
+    
+    switch(type){
+      case 1:
+        fill(0, 255, 0);
+      break;
+      case 2:
+        fill(0, 0, 255);
+      break;
+      case 0:
+      fill(255, 0, 0);
+      break;
+    }
+    ellipse(pos.x, pos.y, hsize, hsize);
+  }
+
+  boolean edges(float x, float y) {
+    return (x + hsize > width || x - hsize < 0 || y + hsize > height || y - hsize < 0);
+  }
+
+}
