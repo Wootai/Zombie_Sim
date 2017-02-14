@@ -5,9 +5,14 @@ float zstart = 5;
 int hwincount = 0;
 int zwincount = 0;
 
+//-- TO DO:
+//-- CREATE ACTOR CLASS
+//-- COMBINE HERO/COMMON/ZOMBIE INTO ONE CLASS
+
 Common c;
 Hero h;
 Zombie z;
+
 
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
@@ -93,6 +98,8 @@ void animate() {
   }
 }
 
+//-- TO DO:
+//-- INSTEAD OF VISIBILITY REMOVE COMMON FROM ARRAY LIST.
 
 void bitten() {
   for (int i = commons.size() - 1; i >= 0; i--) {
@@ -146,6 +153,7 @@ void stacking() {
   }
 }
 
+//-- TO DO: ADD EDGES FUNCTION TO ACTOR CLASS
 
 boolean edges(float x, float y) {
   return (x + hsize > width || x - hsize < 0 || y + hsize > height || y - hsize < 0);
