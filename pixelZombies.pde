@@ -9,9 +9,9 @@ int zwincount = 0;
 //-- CREATE ACTOR CLASS
 //-- COMBINE HERO/COMMON/ZOMBIE INTO ONE CLASS
 
-Common c;
-Hero h;
-Zombie z;
+Actor c;
+Actor h;
+Actor z;
 
 
 ArrayList<Actor> commons;
@@ -37,7 +37,7 @@ void setup() {
     heroes.add(h);
   }
   for (int i = 0; i < zstart; i++) {
-    z = new Zombie(true, false, false);
+    z = new Actor(true, false, false);
     zombies.add(z);
   }
 }
@@ -70,24 +70,24 @@ void draw() {
 }
 
 void display() {
-  for (Common c : commons) {
+  for (Actor c : commons) {
     c.commonShow();
   }
-  for (Hero h : heroes) {
+  for (Actor h : heroes) {
     h.heroShow();
   }
-  for (Zombie z : zombies) {
+  for (Actor z : zombies) {
     z.zombieShow();
   }
 }
 void animate() {
-  for (Common c : commons) {
+  for (Actor c : commons) {
     c.commonMove();
   }
-  for (Zombie z : zombies) {
+  for (Actor z : zombies) {
     z.zombieMove();
   }
-  for (Hero h : heroes) {
+  for (Actor h : heroes) {
     h.heroMove();
     h.heroShoot();
   }
@@ -103,7 +103,7 @@ void bitten() {
       if (d < hsize) {
         commons.get(i).isZombie = true;
         commons.get(i).isCommon = false;
-        zombie.add(commons.get(i));
+        zombies.add(commons.get(i));
         commons.remove(i);
 //        z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
 //        zombies.add(z);
@@ -118,10 +118,14 @@ void bitten() {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        z = new Zombie(heroes.get(i).pos.x, heroes.get(i).pos.y);
-        zombies.add(z);
-        heroes.get(i).visible = false;
+        heroes.get(i).isZombie = true;
+        heroes.get(i).isHero = false;
+        zombies.add(heroes.get(i));
         heroes.remove(i);
+       // z = new Actor(heroes.get(i).pos.x, heroes.get(i).pos.y);
+       // zombies.add(z);
+       // heroes.get(i).visible = false;
+       // heroes.remove(i);
         break;
       }
     }
