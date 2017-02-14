@@ -14,13 +14,12 @@ class Actor {
   float movespeed = 0.6; 
   
   //----- ZOMBIE PROPERTIES  ----------// 
+  // z = new Zombie(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
   //PVector pos = new PVector();
   //boolean visible = true;
   //PVector direction = PVector.random2D();
   
   float zombieSpeed = 1.2;
-
- 
  
   
   void commonMove() {
@@ -117,12 +116,6 @@ void heroShow() {
 
 
 
-class Zombie {
- 
-  Zombie(float x, float y) {
-    pos.set(x, y);
-  }
-
   void zombieMove() {
 
     if (edges(pos.x, pos.y)) {
@@ -168,8 +161,7 @@ class Zombie {
     pos.add(direction);
   }
 
-
-  void zombieShow() {
+void zombieShow() {
     fill(255, 0, 0);
     strokeWeight(1);
     stroke(0);
