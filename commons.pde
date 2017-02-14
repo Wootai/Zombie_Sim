@@ -32,12 +32,6 @@ class Common {
 
   }
 
-
-
-
-
-
-
   void show() {
 
     if (visible) {
