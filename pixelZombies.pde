@@ -14,30 +14,30 @@ Hero h;
 Zombie z;
 
 
-ArrayList<Common> commons;
-ArrayList<Hero> heroes;
-ArrayList<Zombie> zombies;
+ArrayList<Actor> commons;
+ArrayList<Actor> heroes;
+ArrayList<Actor> zombies;
 
 void setup() {
   size(1200, 800, P2D);
 
-  commons = new ArrayList<Common>();
-  heroes = new ArrayList<Hero>();
-  zombies = new ArrayList<Zombie>();
+  commons = new ArrayList<Actor>();
+  heroes = new ArrayList<Actor>();
+  zombies = new ArrayList<Actor>();
   // testing
 
 
   for (int i = 0; i < cstart; i++) {
-    c = new Common();
+    c = new Actor(false, true, false);
     commons.add(c);
   }
 
   for (int i = 0; i < hstart; i++) {
-    h = new Hero();
+    h = new Actor(false, false, true);
     heroes.add(h);
   }
   for (int i = 0; i < zstart; i++) {
-    z = new Zombie(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
+    z = new Zombie(true, false, false);
     zombies.add(z);
   }
 }
@@ -69,32 +69,27 @@ void draw() {
   }
 }
 
-
-
-
-
-
 void display() {
   for (Common c : commons) {
-    c.show();
+    c.commonShow();
   }
   for (Hero h : heroes) {
-    h.show();
+    h.heroShow();
   }
   for (Zombie z : zombies) {
-    z.show();
+    z.zombieShow();
   }
 }
 void animate() {
   for (Common c : commons) {
-    c.move();
+    c.commonMove();
   }
   for (Zombie z : zombies) {
-    z.move();
+    z.zombieMove();
   }
   for (Hero h : heroes) {
-    h.move();
-    h.shoot();
+    h.heroMove();
+    h.heroShoot();
   }
 }
 
@@ -106,12 +101,14 @@ void bitten() {
     for (int j = zombies.size() - 1; j >= 0; j--) {
       float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < hsize) {
-        z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
-        zombies.add(z);
-
-
-        commons.get(i).visible = false;
+        commons.get(i).isZombie = true;
+        commons.get(i).isCommon = false;
+        zombie.add(commons.get(i));
         commons.remove(i);
+//        z = new Zombie(commons.get(i).pos.x, commons.get(i).pos.y);
+//        zombies.add(z);
+//        commons.get(i).visible = false;
+//        commons.remove(i);
         break;
       }
     }
@@ -123,8 +120,6 @@ void bitten() {
       if (d < hsize) {
         z = new Zombie(heroes.get(i).pos.x, heroes.get(i).pos.y);
         zombies.add(z);
-
-
         heroes.get(i).visible = false;
         heroes.remove(i);
         break;
