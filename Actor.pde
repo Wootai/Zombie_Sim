@@ -3,7 +3,7 @@ class Actor implements ActorI {
     color c = color(0, 0, 255);
     float r1;
 
-    PVector pos = new PVector(random(0.1*width, 0.9*width), random(0.1*height, 0.9*height));
+    PVector pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
     PVector direction = PVector.random2D();
  
     

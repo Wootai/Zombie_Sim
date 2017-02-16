@@ -5,27 +5,34 @@ class Zombie extends Actor{
   float minx = 0;
   float miny = 0;
   float zombieSpeed = 1.2;
+  float d;
      
   void move() {
     super.move();
     
     // Moving the zombie towards its closest pray
-    for (Common c : commons) {
-      float d = dist(c.pos.x, c.pos.y, pos.x, pos.y);
+    for (int i = commons.size()-1; i>=0; i--){
+      d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
       if (d < mindist) {
         mindist = d;
-        minx = c.pos.x;
-        miny = c.pos.y;
+        minx = commons.get(i).pos.x;
+        miny = commons.get(i).pos.y;
       }
+      if (d < commons.get(i).hsize) {
+          zombifie(commons.get(i));
+        }
     }
     
-    for (Hero h : heroes) {
-      float d = dist(pos.x, pos.y, h.pos.x, h.pos.y);
+    for (int i = heroes.size()-1; i>= 0; i--){
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);
       if (d < mindist) {
         mindist = d;
-        minx = h.pos.x;
-        miny = h.pos.y;
+        minx = heroes.get(i).pos.x;
+        miny = heroes.get(i).pos.y;
       }
+      if (d < hsize) {
+          zombifie(heroes.get(i));
+        }
     }
 
     PVector ZP = new PVector(minx - pos.x, miny - pos.y);
@@ -42,56 +49,23 @@ class Zombie extends Actor{
   void show() {
     super.show(c);
   }
-    
-  void stacking() {
-   for (int j = 0; j < zombies.size(); j++) {
-      float d = dist(pos.x, pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
-      if (d==0)
-        {
-        break;
-      }
-      
-      if (d < 0.5*hsize) {
-        
-        zombies.get(j).direction.rotate(random(PI*3/4, PI*5/4));
-        zombies.get(j).pos.add(zombies.get(j).direction);
-      }
-    }
-  }
-  
-  void bite() {
-    for (int i = commons.size() - 1; i >= 0; i--) {
-      float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
-        if (d < commons.get(i).hsize) {
-          zombifie(commons.get(i));
-        }
-    }
-    for (int i = heroes.size() - 1; i >= 0; i--) {
-        float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, pos.x, pos.y);
-        if(d<0){break;}
-        if (d < heroes.get(i).hsize) {
-          zombifie(heroes.get(i));
-        }
-    }
-  }
+
    
    void zombifie(Object o){
-     
-     if(o instanceof Common){
       z = new Zombie();
-      z.pos.x = commons.get(commons.indexOf(o)).pos.x;
-      z.pos.y = commons.get(commons.indexOf(o)).pos.y;
-      zombies.add(z);
-      commons.remove(commons.indexOf(o));
+
+      if(o instanceof Common){
+        z.pos.x = commons.get(commons.indexOf(o)).pos.x;
+        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
+        zombies.add(z);
+        commons.remove(commons.indexOf(o));
       }
 
-     if(o instanceof Hero){
-      z = new Zombie();
-      z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
-      z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
-      zombies.add(z);
-      commons.remove(commons.indexOf(o));
-      println("Zombified! Hero: " + o);
+      if(o instanceof Hero){
+        z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
+        z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
+        zombies.add(z);
+        heroes.remove(heroes.indexOf(o));
      }
    }   
 }
