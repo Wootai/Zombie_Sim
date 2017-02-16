@@ -13,7 +13,7 @@ class Actor implements ActorI {
      
   //-----------------  
     
-  void move(){
+  void update(){
    if (pos.x + hsize > width || pos.x - hsize < 0 || pos.y + hsize > height || pos.y - hsize < 0){
       direction.rotate(PI);
       pos.add(direction);

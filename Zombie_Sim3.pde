@@ -61,19 +61,16 @@ void draw() {
 
 void update() {
   for (Actor c : commons) {
-    c.move();
+    c.update();
   }
 
   for (int i = zombies.size()-1; i >= 0; i--) { //Go through the zombie array backwards.
-    zombies.get(i).move();
-    //zombies.get(i).bite();
+    zombies.get(i).update();
   }
   
   for (Hero h : heroes) {
-    h.move();
-    h.shoot();
+    h.update();
   }
-    //stacking();
 
 }
 
@@ -105,13 +102,14 @@ void mouseReleased(){
 }
 
 void stacking() {
-  for (int i = 0; i < zombies.size() - 1; i++) {
-    for (int j = i + 1; j < zombies.size(); j++) {
+  for (int i = zombies.size()-1; i >= 0 ; i--) {
+    for (int j = zombies.size()-1; j >= 0; j--) {
       float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
       if (d < 0.5*zombies.get(i).hsize) {
         
         zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
-        zombies.get(i).pos.add(zombies.get(i).direction);
+        zombies.get(j).pos.add(zombies.get(i).direction);
+        break;
       }
     }
   }

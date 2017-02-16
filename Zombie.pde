@@ -7,8 +7,8 @@ class Zombie extends Actor{
   float zombieSpeed = 1.2;
   float d;
      
-  void move() {
-    super.move();
+  void update() {
+    super.update();
     
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
@@ -17,10 +17,11 @@ class Zombie extends Actor{
         mindist = d;
         minx = commons.get(i).pos.x;
         miny = commons.get(i).pos.y;
+        break;
       }
       if (d < commons.get(i).hsize) {
           zombifie(commons.get(i));
-        }
+         }
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
@@ -29,9 +30,11 @@ class Zombie extends Actor{
         mindist = d;
         minx = heroes.get(i).pos.x;
         miny = heroes.get(i).pos.y;
+        break;
       }
       if (d < hsize) {
           zombifie(heroes.get(i));
+          break;
         }
     }
 
@@ -44,28 +47,47 @@ class Zombie extends Actor{
     }
 
     pos.add(direction);
+   
+   bite();
+  
   }
   
   void show() {
     super.show(c);
   }
-
-   
-   void zombifie(Object o){
-      z = new Zombie();
-
-      if(o instanceof Common){
-        z.pos.x = commons.get(commons.indexOf(o)).pos.x;
-        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
-        zombies.add(z);
-        commons.remove(commons.indexOf(o));
+  
+  void bite() {
+    for (int i = commons.size() - 1; i >= 0; i--) {
+      float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
+        if (d < commons.get(i).hsize) {
+          zombifie(commons.get(i));
+        }
+    }
+  
+    for (int i = heroes.size() - 1; i >= 0; i--) {
+        float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, pos.x, pos.y);
+        if (d < heroes.get(i).hsize) {
+          zombifie(commons.get(i));
+        }
       }
+    }
 
-      if(o instanceof Hero){
-        z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
-        z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
-        zombies.add(z);
-        heroes.remove(heroes.indexOf(o));
+  void zombifie(Object o){
+     z = new Zombie();
+     if(o instanceof Common){
+       z.pos.x = commons.get(commons.indexOf(o)).pos.x;
+       z.pos.y = commons.get(commons.indexOf(o)).pos.y;
+       zombies.add(z);
+       commons.remove(commons.indexOf(o));
+      
      }
-   }   
+
+     if(o instanceof Hero){
+       z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
+       z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
+       zombies.add(z);
+       heroes.remove(heroes.indexOf(o));
+    }
+  }   
+
 }

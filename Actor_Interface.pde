@@ -1,6 +1,6 @@
 interface ActorI{
 
- void move();
+ void update();
  void show(color c);
  
 }

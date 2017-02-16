@@ -2,9 +2,9 @@ class Common extends Actor{
   
   color c = color(255,255,0);  
   
-  void move(){
+  void update(){
     
-    super.move();
+    super.update();
   
     if (r1 < 0.05) {
             direction.rotate(random(-PI/6, PI/6));

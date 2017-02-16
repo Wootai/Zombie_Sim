@@ -3,12 +3,12 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float firerange = 80; // Number of pixels
-  float firespeed = 20; // Number of frames between shots
+  float firespeed = 8; // Number of frames between shots
   float movespeed = 0.6; 
-  
-  void move(){
-    super.move();
-    //float r1 = random(1);
+  float d;
+   
+  void update(){
+    super.update();
     
     direction.setMag(movespeed);
     
@@ -29,20 +29,21 @@ class Hero extends Actor{
       }
     }
     pos.add(direction);
+    println(frameCount);
+    shoot();  
   }
-
   
   void shoot() {
       for (int i = zombies.size() - 1; i >= 0; i--) {
-        float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
+        d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         
         if (d < firerange && frameCount % firespeed == 0) {
-          println(this + " shot " + zombies.get(i));
+           //println(this + " shot " + zombies.get(i));
            stroke(167, 240, 44);
            strokeWeight(4);
            line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
            zombies.remove(i);
-           killCount ++;
+           break;
         }
       }
     }
@@ -55,6 +56,5 @@ class Hero extends Actor{
     //}
     super.show(c);
   }
-  
   
 }
