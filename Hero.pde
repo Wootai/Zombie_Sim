@@ -7,11 +7,12 @@ class Hero extends Actor{
   float movespeed = 0.6; 
   
   void move(){
-    border();
+    super.move();
+    //float r1 = random(1);
     
     direction.setMag(movespeed);
     
-    float r1 = random(1);
+    
     if (r1 < 0.01) {
       direction.rotate(random(-PI/6, PI/6));
     }
@@ -36,7 +37,7 @@ class Hero extends Actor{
         float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         
         if (d < firerange && frameCount % firespeed == 0) {
-          println(zombies.get(i));
+          println(this + " shot " + zombies.get(i));
            stroke(167, 240, 44);
            strokeWeight(4);
            line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
@@ -47,11 +48,11 @@ class Hero extends Actor{
     }
   
   void show() {
-    noStroke();
-    for(int i = 10; i>0; i--){
-      fill(c, 10*i);    
-      ellipse(pos.x, pos.y, hsize+i, hsize+i);
-    }
+    //noStroke();
+    //for(int i = 10; i>0; i--){
+    //  fill(c, 10*i);    
+    //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
+    //}
     super.show(c);
   }
   

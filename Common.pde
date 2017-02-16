@@ -4,13 +4,11 @@ class Common extends Actor{
   
   void move(){
     
-    border();
+    super.move();
   
-    float r1 = random(1);
-    
     if (r1 < 0.05) {
             direction.rotate(random(-PI/6, PI/6));
-          }
+      }
     
     for (Zombie z : zombies) {
       float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
@@ -23,15 +21,16 @@ class Common extends Actor{
             direction.set(CZ);
           }
         }
+     
      pos.add(direction);
   }
  
  void show(){
-    noStroke();
-    for(int i = 5; i>0; i--){
-      fill(c, 10*i);    
-      ellipse(pos.x, pos.y, hsize+i, hsize+i);
-    }
+    //noStroke();
+    //for(int i = 5; i>0; i--){
+    //  fill(c, 10*i);    
+    //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
+    //}
    super.show(c);
  }
 }

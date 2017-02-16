@@ -13,6 +13,7 @@ Zombie z;
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
+ArrayList<Zombie> newZombies;
 
 
 void setup() {
@@ -21,6 +22,7 @@ void setup() {
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
+  newZombies = new ArrayList<Zombie>();
   // testing
 
 
@@ -49,8 +51,9 @@ void draw() {
   text("Zombies: " + str(zombies.size()), 10, height - 13);
   
 
-  animate();
+  update();
   display();
+ // bitten();
 
   if (heroes.size() == 0) {
     zwincount++;
@@ -62,20 +65,21 @@ void draw() {
   }
 }
 
-void animate() {
+void update() {
   for (Actor c : commons) {
     c.move();
   }
-  for (Zombie z : zombies) {
-    z.move();
-    z.stacking();
-  //  z.bite();
+  for (int i = zombies.size()-1; i >= 0; i--) {
+    zombies.get(i).move();
+    zombies.get(i).stacking();
+    zombies.get(i).bite();
   }
   
   for (Hero h : heroes) {
     h.move();
     h.shoot();
   }
+
 }
 
 void display() {
@@ -106,3 +110,33 @@ void mouseReleased(){
     zombies.add(z);
    }
 }
+
+//void bitten() {
+//  for (int i = commons.size() - 1; i >= 0; i--) {
+//    for (int j = zombies.size() - 1; j >= 0; j--) {
+//      float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
+//      if (d < commons.get(i).hsize) {
+//        Zombie z = new Zombie();
+//        z.pos.x = commons.get(i).pos.x;
+//        z.pos.y = commons.get(i).pos.y;
+//        zombies.add(0, z);
+//        commons.remove(i);
+//        break;
+//      }
+//    }
+//  }
+
+//  for (int i = heroes.size() - 1; i >= 0; i--) {
+//    for (int j = zombies.size() - 1; j >= 0; j--) {
+//      float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
+//      if (d < heroes.get(i).hsize) {
+//        Zombie z = new Zombie();
+//        z.pos.x = heroes.get(i).pos.x;
+//        z.pos.y = heroes.get(i).pos.y;
+//        zombies.add(0, z);
+//        commons.remove(i);
+//        break;
+//      }
+//    }
+//  }
+//}
