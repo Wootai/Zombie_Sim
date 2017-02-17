@@ -67,10 +67,6 @@ void draw() {
 
 void update() {
   
-  //for(Actor c: humans){
-  //  c.update();
-  //}
-  
   for (Actor c : commons) {
     c.update();
   }
@@ -94,40 +90,26 @@ void display() {
   for (Hero h : heroes) {
     h.show();
   }
-  
-  //for (Actor c : humans){
-  //  c.show(color(255,0,0));
-  //}
+
   
   for (Zombie z : zombies) {
     z.show();
-    stacking();
+    //stacking();
   }
 }
 
-void mouseReleased(){
-   if (mouseButton == LEFT){
-     c = new Common();
-     c.pos.x = mouseX;
-     c.pos.y = mouseY;
-     commons.add(c);
-   }
-   if(mouseButton == RIGHT){
-    z = new Zombie();
-    z.pos.x = mouseX;
-    z.pos.y = mouseY;
-    zombies.add(z);
-   }
-}
+
+
 //Fix
-void stacking() {
-  for (int i = 0; i < zombies.size() - 1; i++) {
-   for (int j = i + 1; j < zombies.size(); j++) {
-       float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
-       if (d < 0.5*zombies.get(i).hsize) {
-         zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
-         zombies.get(i).pos.add(zombies.get(i).direction);
-       }
-     } 
-   } 
- } 
+
+//void stacking() {
+//  for (int i = 0; i < zombies.size() - 1; i++) {
+//   for (int j = i + 1; j < zombies.size(); j++) {
+//       float d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, zombies.get(j).pos.x, zombies.get(j).pos.y);
+//       if (d < 0.5*zombies.get(i).hsize) {
+//         zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
+//         zombies.get(i).pos.add(zombies.get(i).direction);
+//       }
+//     } 
+//   } 
+// } 

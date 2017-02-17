@@ -13,20 +13,11 @@ class Zombie extends Actor{
      
   void update() { //<>//
     
-    // Have to change all this code.
-    // Removing target from Arraybreaks the update code of the Zombie
-    
     
     super.update();
-    if(mindist <= hsize || prevMinDist == mindist){mindist=height*width;}
     
-    //if (commons.size() == 0 && heroes.size() == 0){
-    //  PVector ZP = PVector.random2D();
-    //  direction = ZP;
-    //  direction.setMag(zombieSpeed);
-    //  pos.add(direction);
-    //}
-    
+    if(prevMinDist == mindist){mindist=height*width;}
+        
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
       closestC = i;
@@ -64,9 +55,9 @@ class Zombie extends Actor{
     direction = ZP;
     direction.setMag(zombieSpeed);
 
-    //if (r1 < 0.1) {
-    //  direction.rotate(random(-PI/6, PI/6));
-    //}
+    if (r1 < 0.1) {
+      direction.rotate(random(-PI/6, PI/6));
+    }
 
     pos.add(direction);
     prevMinDist = mindist;

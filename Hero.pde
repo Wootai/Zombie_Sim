@@ -43,6 +43,7 @@ class Hero extends Actor{
            strokeWeight(4);
            line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
            zombies.remove(i);
+           killCount++;
            break;
         }
       }
@@ -51,11 +52,11 @@ class Hero extends Actor{
   void show() {
     super.show(c);
 
-    //noStroke();
-    //for(int i = 10; i>0; i--){
-    //  fill(c, 10*i);    
-    //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
-    //}
+    noStroke();
+    for(int i = 0; i < killCount; i++){
+      fill(c, 255/killCount);    
+      ellipse(pos.x, pos.y, hsize+killCount, hsize+killCount);
+    }
   }
   
 }
