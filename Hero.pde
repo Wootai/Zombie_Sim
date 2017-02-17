@@ -3,7 +3,7 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float firerange = 80; // Number of pixels
-  float firespeed = 8; // Number of frames between shots
+  float firespeed = 16; // Number of frames between shots. I want to untie this from framrate
   float movespeed = 0.6; 
   float d;
    
@@ -49,12 +49,13 @@ class Hero extends Actor{
     }
   
   void show() {
+    super.show(c);
+
     //noStroke();
     //for(int i = 10; i>0; i--){
     //  fill(c, 10*i);    
     //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
     //}
-    super.show(c);
   }
   
 }

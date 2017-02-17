@@ -6,47 +6,70 @@ class Zombie extends Actor{
   float miny = 0;
   float zombieSpeed = 1.2;
   float d;
+  int closestC;
+  int closestH;
+  float prevMinDist;   
      
-  void update() {
+     
+  void update() { //<>//
+    
+    // Have to change all this code.
+    // Removing target from Arraybreaks the update code of the Zombie
+    
+    
     super.update();
+    if(mindist <= hsize || prevMinDist == mindist){mindist=height*width;}
+    
+    //if (commons.size() == 0 && heroes.size() == 0){
+    //  PVector ZP = PVector.random2D();
+    //  direction = ZP;
+    //  direction.setMag(zombieSpeed);
+    //  pos.add(direction);
+    //}
     
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
-      d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
+      closestC = i;
+      float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
       if (d < mindist) {
         mindist = d;
         minx = commons.get(i).pos.x;
         miny = commons.get(i).pos.y;
-        break;
       }
-      if (d < commons.get(i).hsize) {
-          zombifie(commons.get(i));
-         }
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);
+      closestH = i;
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>//
       if (d < mindist) {
         mindist = d;
         minx = heroes.get(i).pos.x;
         miny = heroes.get(i).pos.y;
-        break;
       }
-      if (d < hsize) {
-          zombifie(heroes.get(i));
-          break;
-        }
     }
-
+    
+    if(heroes.size()>0){
+      if(heroes.contains(heroes.get(closestH)) == false){
+        update();
+      }
+    }
+    
+    if(commons.size()>0){
+      if(commons.contains(commons.get(closestC)) == false ){
+        update();
+      }
+    }
+    
     PVector ZP = new PVector(minx - pos.x, miny - pos.y);
     direction = ZP;
     direction.setMag(zombieSpeed);
 
-    if (r1 < 0.1) {
-      direction.rotate(random(-PI/6, PI/6));
-    }
+    //if (r1 < 0.1) {
+    //  direction.rotate(random(-PI/6, PI/6));
+    //}
 
     pos.add(direction);
+    prevMinDist = mindist;
    
    bite();
   
@@ -58,16 +81,18 @@ class Zombie extends Actor{
   
   void bite() {
     for (int i = commons.size() - 1; i >= 0; i--) {
-      float d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
-        if (d < commons.get(i).hsize) {
-          zombifie(commons.get(i));
+       d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
+       if (d < commons.get(i).hsize) {
+         zombifie(commons.get(i));
+         break;
         }
     }
   
     for (int i = heroes.size() - 1; i >= 0; i--) {
-        float d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, pos.x, pos.y);
+        d = dist(heroes.get(i).pos.x, heroes.get(i).pos.y, pos.x, pos.y);
         if (d < heroes.get(i).hsize) {
-          zombifie(commons.get(i));
+          zombifie(heroes.get(i));
+          break;
         }
       }
     }

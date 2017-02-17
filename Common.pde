@@ -26,11 +26,13 @@ class Common extends Actor{
   }
  
  void show(){
-    //noStroke();
-    //for(int i = 5; i>0; i--){
-    //  fill(c, 10*i);    
-    //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
-    //}
+
    super.show(c);
+
+   //noStroke();
+   //for(int i = 5; i>0; i--){
+   //  fill(c, 10*i);    
+   //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
+   //}
  }
 }
