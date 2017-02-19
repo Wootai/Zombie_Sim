@@ -11,6 +11,7 @@ class Boomer extends Zombie{
   
   void special(){
     exploding = true;
+    
     for (int i = commons.size() - 1; i >= 0; i--){
       d = dist(pos.x, pos.y, commons.get(i).pos.x, commons.get(i).pos.y);
       if(d < 10*hSize ){
@@ -24,6 +25,11 @@ class Boomer extends Zombie{
         super.zombifie(heroes.get(i));
       }
     }
+    for(int i = 0; i < 10; i++){
+      fill(c, 150);
+      ellipse(pos.x, pos.y, hSize*i, hSize*i);
+      
+    }
   }
   
   void show(){
@@ -35,6 +41,7 @@ class Boomer extends Zombie{
       if(count == 2000){
         exploding = !exploding;
       }
+      count++;
     }
     
     else{super.show();}

@@ -15,7 +15,6 @@ class Zombie extends Actor{
      
   void update() { //<>// //<>//
     
-    
     super.update();
     
     if(prevMinDist == mindDist){mindDist=height*width;}
