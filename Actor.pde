@@ -4,8 +4,7 @@ class Actor implements ActorI { //<>//
   float r1;
   float d;
 
-  PVector pos = PVector.random2D();
-    
+  PVector pos;
   PVector direction;
 
   Actor() {
@@ -50,8 +49,6 @@ class Actor implements ActorI { //<>//
         }
       }
     
-
-
     if (pos.x + hSize*.5 > width || pos.x - hSize*.5 < 0 || pos.y + hSize*.5 > height || pos.y - hSize*.5 < 0) {
       direction.rotate(PI);
       pos.add(direction);
@@ -63,8 +60,10 @@ class Actor implements ActorI { //<>//
     stroke(0);
     strokeWeight(1);
     //noStroke();
-    fill(c);    
+    fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);
+    line(pos.x, pos.y, pos.x+direction.x*15, pos.y+direction.y*15);
+
   }
  
   void validate(){

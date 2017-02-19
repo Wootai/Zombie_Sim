@@ -28,10 +28,13 @@ class Hero extends Actor{
   }
   
   void shoot() {
+      m = millis();
+      println(m%fireSpeed);
+      if(m % fireSpeed < 10){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-        m = millis();
-        if (d < fireRange && m % fireSpeed < 10) {
+        
+        if (d < fireRange) {
            //println(this + " shot " + zombies.get(i));
            stroke(167, 240, 44);
            strokeWeight(4);
@@ -43,6 +46,7 @@ class Hero extends Actor{
         }
       }
     }
+  }
   
   void show() {
     noStroke();

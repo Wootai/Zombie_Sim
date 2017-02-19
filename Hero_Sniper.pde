@@ -6,14 +6,18 @@ class Sniper extends Hero{
      fireRange = 220;
      minRange = 90;
      c = color(125,0,200);
-     fireSpeed = 24;
+     fireSpeed = 240;
+     
   }
   
   void shoot() {
+    m = millis();
+    //println(m%fireSpeed);
+    if(m % fireSpeed < 10){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         
-        if (d < fireRange && frameCount % fireSpeed == 0 && d > minRange) {
+        if (d < fireRange && d > minRange) {
            //println(this + " shot " + zombies.get(i));
            stroke(167, 240, 44);
            strokeWeight(4);
@@ -25,4 +29,5 @@ class Sniper extends Hero{
         }
       }
     }
+  }
 }
