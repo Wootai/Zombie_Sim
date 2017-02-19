@@ -13,7 +13,7 @@ class Zombie extends Actor{
    super();
   }
      
-  void update() { //<>//
+  void update() { //<>// //<>//
     
     
     super.update();
@@ -33,7 +33,7 @@ class Zombie extends Actor{
     
     for (int i = heroes.size()-1; i>= 0; i--){
       closestH = i;
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>//
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>// //<>//
       if (d < mindDist) {
         mindDist = d;
         minX = heroes.get(i).pos.x;

@@ -23,7 +23,7 @@ void setup() {
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
-  obstacles = new ArrayList<Obstacles>();
+  obstacles = new ArrayList<Obstacle>();
   
   o = new Obstacle(width/2-150, height/2-150, 300, 300);
   obstacles.add(o);
@@ -92,7 +92,8 @@ void update() {
 }
 
 void display() {
-  
+  o.show();
+
   for (Common c : commons) {
     c.show();
   }
@@ -104,7 +105,6 @@ void display() {
   for (Zombie z : zombies) {
     z.show();
   }
-  o.show();
 }
 
 void hud(){
