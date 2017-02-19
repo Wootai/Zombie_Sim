@@ -16,6 +16,7 @@ class Actor implements ActorI {
     if(pos.y > height){pos.y = height - hSize+1;}
     if(pos.y < 0){pos.y = hSize+1;}
    
+     
     if (pos.x + hSize*.5 > width || pos.x - hSize*.5 < 0 || pos.y + hSize*.5 > height || pos.y - hSize*.5 < 0){
       direction.rotate(PI);
       pos.add(direction);

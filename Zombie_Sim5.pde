@@ -9,10 +9,13 @@ int zwincount = 0;
 Common c;
 Hero h;
 Zombie z;
+Obstacle o;
+
 
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
+ArrayList<Obstacle> obstacles;
 
 void setup() {
   size(1200, 800, P2D);
@@ -20,7 +23,10 @@ void setup() {
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
-  // testing
+  obstacles = new ArrayList<Obstacles>();
+  
+  o = new Obstacle(width/2-150, height/2-150, 300, 300);
+  obstacles.add(o);
 
   for (int i = 0; i < cstart; i++) {
     c = new Common();
@@ -98,7 +104,7 @@ void display() {
   for (Zombie z : zombies) {
     z.show();
   }
-
+  o.show();
 }
 
 void hud(){

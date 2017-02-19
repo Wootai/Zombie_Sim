@@ -3,8 +3,9 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float fireRange = 80; // Number of pixels
-  float fireSpeed = 16; // Number of frames between shots. I want to untie this from framrate
+  float fireSpeed = 500; // Number of milliseconds between shots. I want to untie this from framrate
   float moveSpeed = 0.6; 
+  float m;
    
   void update(){
     super.update();
@@ -29,8 +30,8 @@ class Hero extends Actor{
   void shoot() {
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-        
-        if (d < fireRange && frameCount % fireSpeed == 0) {
+        m = millis();
+        if (d < fireRange && m % fireSpeed < 10) {
            //println(this + " shot " + zombies.get(i));
            stroke(167, 240, 44);
            strokeWeight(4);
