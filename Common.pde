@@ -5,14 +5,11 @@ class Common extends Actor{
   void update(){
     
     super.update();
-  
-    if (r1 < 0.05) {
-            direction.rotate(random(-PI/6, PI/6));
-      }
-    
+    stack();
+
     for (Zombie z : zombies) {
-      float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < 10*hsize) {
+       d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
+          if (d < 10*hSize) {
             PVector CZ = new PVector();
             CZ.set(pos); 
             CZ.sub(z.pos); 
@@ -23,10 +20,23 @@ class Common extends Actor{
         }
      
      pos.add(direction);
+
   }
+  
+  void stack() {
+    for (int i = 0; i < commons.size() - 1; i++) {
+       d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
+       if( d == 0){
+         break;
+       }
+       if (d < 2*hSize) {
+         commons.get(i).direction.rotate(PI+(random(1)));
+         commons.get(i).pos.add(commons.get(i).direction.normalize());
+       }
+     } 
+   } 
  
  void show(){
-
    super.show(c);
 
    //noStroke();
