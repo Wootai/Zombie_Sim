@@ -3,7 +3,7 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float fireRange = 80; // Number of pixels
-  float fireSpeed = 500; // Number of milliseconds between shots. I want to untie this from framrate
+  float fireSpeed = 150; // Number of milliseconds between shots. I want to untie this from framrate
   float moveSpeed = 0.6; 
   float m;
    

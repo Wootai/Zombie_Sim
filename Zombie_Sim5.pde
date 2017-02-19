@@ -3,6 +3,8 @@ float cstart = 400; //<>//
 float hstart = 6; //<>//
 float zstart = 11; //<>//
 
+float obStart = 4;
+
 int hwincount = 0;
 int zwincount = 0;
 
@@ -25,8 +27,10 @@ void setup() {
   zombies = new ArrayList<Zombie>();
   obstacles = new ArrayList<Obstacle>();
   
-  o = new Obstacle(width/2-150, height/2-150, 300, 300);
-  obstacles.add(o);
+   for(int i = 0; i < obStart; i++){
+    o = new Obstacle(random(width), random(height), random(50, 150), random(25, 125));
+    obstacles.add(o);
+   }
 
   for (int i = 0; i < cstart; i++) {
     c = new Common();
@@ -59,19 +63,9 @@ void draw() {
 
   update();
   display();
-  
+  score();
   fill(255);
   hud();
-
-  
-  if (heroes.size() == 0) {
-    zwincount++;
-    setup();
-  }
-  if (zombies.size() == 0) {
-    hwincount++;
-    setup();
-  }
   
 }
 
@@ -92,8 +86,10 @@ void update() {
 }
 
 void display() {
-  o.show();
-
+  for (Obstacle o : obstacles){
+    o.show();
+  }
+  
   for (Common c : commons) {
     c.show();
   }
@@ -113,4 +109,17 @@ void hud(){
   text("Heroes: " + str(heroes.size()), 10, height - 26);
   text("Zombies: " + str(zombies.size()), 10, height - 13);
 
+}
+
+void score(){
+  
+  if (heroes.size() == 0) {
+    zwincount++;
+    setup();
+  }
+  if (zombies.size() == 0) {
+    hwincount++;
+    setup();
+  }
+  
 }

@@ -8,7 +8,7 @@ Play Boomer animation when dying
 3rd Hero type: Demolitions launches grenades and does AOE Damage.
 Heroes with higher kill counts are more attractive to zombies.
 
-add Obstacles
+* add Obstacles 
 
 
 

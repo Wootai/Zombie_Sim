@@ -1,4 +1,4 @@
-class Actor implements ActorI { //<>// //<>//
+class Actor implements ActorI { //<>//
   float hSize = 10;
   color c = color(0, 0, 255);
   float r1;
@@ -7,30 +7,6 @@ class Actor implements ActorI { //<>// //<>//
   PVector pos = PVector.random2D();
     
   PVector direction;
-
-/*
-    Circle newCircle() {
-    
-      float x = random(width);
-      float y = random(height);
-    
-      boolean valid = true;
-      for (Circle c : circles) {
-        float d = dist(x, y, c.x, c.y);
-        if (d < c.r) {
-          valid = false;
-          break;
-        }
-      }
-    
-      if (valid) {
-        return new Circle(x, y);
-      } else {
-        return null;
-      }
-    }
-*/
-
 
   Actor() {
 
@@ -41,7 +17,7 @@ class Actor implements ActorI { //<>// //<>//
     while(!valid){
       pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
       for(Obstacle o: obstacles){
-        if (pos.x > o.x - hSize*2 && pos.x  < o.maxX + hSize * 2
+        if (pos.x > o.x - hSize * 2 && pos.x  < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
             valid = false;
           }
@@ -66,7 +42,7 @@ class Actor implements ActorI { //<>// //<>//
     }
     
     for(Obstacle o: obstacles){
-      if (pos.x > o.x - hSize*2 && pos.x  < o.maxX + hSize * 2
+      if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
           direction.rotate(PI);
           pos.add(direction);
