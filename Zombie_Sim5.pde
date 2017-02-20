@@ -11,7 +11,8 @@ Common c;
 Hero h;
 Zombie z;
 Obstacle o;
-
+float now = millis();
+float deltaTime;
 
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
@@ -19,6 +20,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
 void setup() {
+  frameRate(30);
   size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();
@@ -60,12 +62,20 @@ void setup() {
 void draw() {
   println(frameRate/1000);
   background(51);
-
+  
+  now = millis();
+  
   update();
   display();
   score();
   fill(255);
   hud();
+  
+  deltaTime = millis() - now;
+  while(deltaTime < 20){
+    deltaTime = millis()-now;
+  }
+ 
   
 }
 
