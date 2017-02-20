@@ -3,6 +3,8 @@ class Actor implements ActorI { //<>//
   color c = color(0, 0, 255);
   float r1;
   float d;
+  boolean valid = false;
+
 
   PVector pos;
   PVector direction;
@@ -10,15 +12,16 @@ class Actor implements ActorI { //<>//
   Actor() {
 
     direction = PVector.random2D();
-    
-    boolean valid = false;
-    
+    int count = 0;
+    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+
     while(!valid){
-      pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
       for(Obstacle o: obstacles){
         if (pos.x > o.x - hSize * 2 && pos.x  < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
             valid = false;
+            pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+
           }
          else {valid = true;}
         }

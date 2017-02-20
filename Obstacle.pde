@@ -18,6 +18,7 @@ class Obstacle{
    
    void show(){
      noFill();
+     stroke(0);
      strokeWeight(4);
      rect(x, y, len, wid); 
    }

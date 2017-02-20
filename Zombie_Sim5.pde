@@ -1,6 +1,6 @@
  //<>//
 float cstart = 400; //<>//
-float hstart = 6; //<>//
+float hstart = 12; //<>//
 float zstart = 11; //<>//
 
 float obStart = 4;
@@ -28,7 +28,7 @@ void setup() {
   obstacles = new ArrayList<Obstacle>();
   
    for(int i = 0; i < obStart; i++){
-    o = new Obstacle(random(width), random(height), random(50, 150), random(25, 125));
+    o = new Obstacle(random(150, width-150), random(125, height-125), random(50, 150), random(25, 125));
     obstacles.add(o);
    }
 
@@ -46,12 +46,12 @@ void setup() {
   } //<>//
    //<>//
   for (int i = 0; i < zstart; i++) { //<>//
-    if(i % 10 == 0){ //<>//
+    //if(i % 10 == 0){ //<>//
       z = new Boomer();
-    }
-    else{
-      z = new Zombie();
-    }
+    //}
+    //else{
+      //z = new Zombie();
+    //}
     zombies.add(z);
 
   }

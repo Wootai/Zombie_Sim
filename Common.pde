@@ -1,4 +1,4 @@
-class Common extends Actor{
+ class Common extends Actor{
   
   color c = color(255,255,0);  
   
