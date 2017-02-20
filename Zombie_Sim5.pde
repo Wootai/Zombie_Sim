@@ -1,5 +1,5 @@
 float cstart = 400; //<>// //<>//
-float hstart = 12; //<>//
+float hstart = 10; //<>//
 float zstart = 5; //<>//
 
 float obStart = 4;
@@ -20,7 +20,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
 void setup() {
-  frameRate(60);
+  frameRate(120);
   size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();
@@ -51,7 +51,7 @@ void setup() {
 
   for (int i = 1; i < hstart+1; i++) {
     if(i % 3 == 0){
-      h = new Sniper();
+    h = new Sniper();
     } //<>//
     else{ //<>//
     h = new Hero();
@@ -72,7 +72,7 @@ void draw() {
   fill(255);
   hud();
   
-  while(deltaTime(lastTime) < 20){
+  while(deltaTime(lastTime) < 60){
     deltaTime(lastTime);
   }
  lastTime = now;

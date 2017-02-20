@@ -4,7 +4,7 @@ class Actor implements ActorI { //<>//
   float r1;
   float d;
   boolean obsValid = false;
-  boolean actValid = false;
+  //boolean actValid = false;
 
 
   PVector pos;
@@ -16,14 +16,12 @@ class Actor implements ActorI { //<>//
    
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
-    while(!obsValid && !actValid){
+    while(!obsValid){
       for(Obstacle o: obstacles){
           if (pos.x > o.x - hSize * 2
               && pos.x  < o.maxX + hSize * 2
               && pos.y  > o.y - hSize * 2 
-              && pos.y < o.maxY + hSize * 2 
-              /* && (pos.x > z.pos.x || pos.x < z.pos.x)
-              && (pos.y > z.pos.y || pos.y < z.pos.y)*/){ 
+              && pos.y < o.maxY + hSize * 2){ 
               obsValid = false;
               pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
   
@@ -32,8 +30,6 @@ class Actor implements ActorI { //<>//
           }
         }
       }
-  //}
-
 
   void update() {
 
@@ -69,14 +65,11 @@ class Actor implements ActorI { //<>//
   void show(color c) {
     stroke(0);
     strokeWeight(1);
-    //noStroke();
     fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);
     line(pos.x, pos.y, pos.x+direction.x*20, pos.y+direction.y*20);
 
   }
  
-  void validate(){
-  
-  }
+  void validate(){ }
 }
