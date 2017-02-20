@@ -3,13 +3,14 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float fireRange = 80; // Number of pixels
-  float fireSpeed = 150; // Number of milliseconds between shots.
+  float shootTime = 233; // Number of milliseconds between shots.
   float moveSpeed = 0.6; 
-  float m = now;
+  float myNow = now;
+  float lastShot;
+  //float sinceLastShot;
    
   void update(){
     super.update();
-    
     direction.setMag(moveSpeed);
 
     for (Actor z : zombies) {
@@ -24,23 +25,13 @@ class Hero extends Actor{
       }
     }
     pos.add(direction);
-    shoot();  
-  }
-  
-  void shoot() {
-      
-      if(m % fireSpeed < 20){
-      for (int i = zombies.size() - 1; i >= 0; i--) {
-        d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-        
-        if (d < fireRange) {
-           kill(zombies.get(i));
-           break;
-        }
-      }
+
+    if(deltaTime(lastShot) > shootTime){
+      shoot();  
     }
   }
   
+    
   void kill(Zombie Z){
       stroke(167, 240, 44);
       strokeWeight(4);
@@ -50,6 +41,17 @@ class Hero extends Actor{
       killCount++;
   }
   
+  void shoot() {
+        for (int i = zombies.size() - 1; i >= 0; i--) {
+          d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);           
+          if (d < fireRange) {
+             kill(zombies.get(i));
+             lastShot = millis();
+             break;
+          }
+        }
+      }
+  
   void show() {
     noStroke();
     for(int i = 0; i < killCount; i++){
@@ -58,5 +60,4 @@ class Hero extends Actor{
     }
     super.show(c);
   }
-  
 }

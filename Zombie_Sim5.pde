@@ -1,6 +1,6 @@
 float cstart = 400; //<>// //<>//
 float hstart = 12; //<>//
-float zstart = 11; //<>//
+float zstart = 5; //<>//
 
 float obStart = 4;
 
@@ -12,6 +12,7 @@ Hero h;
 Zombie z;
 Obstacle o;
 float now = millis();
+float lastTime;
 
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
@@ -19,7 +20,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
 void setup() {
-  frameRate(30);
+  frameRate(60);
   size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();
@@ -31,6 +32,17 @@ void setup() {
     o = new Obstacle(random(150, width-150), random(125, height-125), random(50, 150), random(25, 125));
     obstacles.add(o);
    }
+   
+   for (int i = 0; i < zstart; i++) {
+    if(i % 10 == 0){
+      z = new Boomer();
+    }
+    else{
+      z = new Zombie();
+    }
+    zombies.add(z);
+
+  }
 
   for (int i = 0; i < cstart; i++) {
     c = new Common();
@@ -41,25 +53,15 @@ void setup() {
     if(i % 3 == 0){
       h = new Sniper();
     } //<>//
-    else{h = new Hero();} //<>//
+    else{ //<>//
+    h = new Hero();
+  }
     heroes.add(h); //<>//
   } //<>//
-   //<>//
-  for (int i = 0; i < zstart; i++) { //<>//
-    //if(i % 10 == 0){ //<>//
-      z = new Boomer();
-    //}
-    //else{
-      //z = new Zombie();
-    //}
-    zombies.add(z);
-
-  }
-
-}
+} //<>// //<>// //<>//
 
 void draw() {
-  println(frameRate/1000);
+  //println(frameRate/1000);
   background(51);
   
   now = millis();
@@ -70,10 +72,10 @@ void draw() {
   fill(255);
   hud();
   
-  while(deltaTime() < 20){
-    deltaTime();
+  while(deltaTime(lastTime) < 20){
+    deltaTime(lastTime);
   }
- 
+ lastTime = now;
   
 }
 
@@ -109,25 +111,4 @@ void display() {
   for (Zombie z : zombies) {
     z.show();
   }
-}
-
-void hud(){
-  text("Zombies " + str(zwincount) + "-" + str(hwincount) + " Humans", 10, 24);
-  text("Commons: " + str(commons.size()), 10, height - 39);
-  text("Heroes: " + str(heroes.size()), 10, height - 26);
-  text("Zombies: " + str(zombies.size()), 10, height - 13);
-
-}
-
-void score(){
-  
-  if (heroes.size() == 0) {
-    zwincount++;
-    setup();
-  }
-  if (zombies.size() == 0) {
-    hwincount++;
-    setup();
-  }
-  
 }

@@ -3,7 +3,8 @@ class Actor implements ActorI { //<>//
   color c = color(0, 0, 255);
   float r1;
   float d;
-  boolean valid = false;
+  boolean obsValid = false;
+  boolean actValid = false;
 
 
   PVector pos;
@@ -15,18 +16,24 @@ class Actor implements ActorI { //<>//
    
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
-    while(!valid){
+    while(!obsValid && !actValid){
       for(Obstacle o: obstacles){
-        if (pos.x > o.x - hSize * 2 && pos.x  < o.maxX + hSize * 2
-            && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-            valid = false;
-            pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
-
+          if (pos.x > o.x - hSize * 2
+              && pos.x  < o.maxX + hSize * 2
+              && pos.y  > o.y - hSize * 2 
+              && pos.y < o.maxY + hSize * 2 
+              /* && (pos.x > z.pos.x || pos.x < z.pos.x)
+              && (pos.y > z.pos.y || pos.y < z.pos.y)*/){ 
+              obsValid = false;
+              pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+  
+            }
+           else {obsValid = true;}
           }
-         else {valid = true;}
         }
-      }     
-    }
+      }
+  //}
+
 
   void update() {
 
@@ -65,7 +72,7 @@ class Actor implements ActorI { //<>//
     //noStroke();
     fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);
-    line(pos.x, pos.y, pos.x+direction.x*15, pos.y+direction.y*15);
+    line(pos.x, pos.y, pos.x+direction.x*20, pos.y+direction.y*20);
 
   }
  

@@ -5,7 +5,7 @@
   void update(){
     
     super.update();
-    stack();
+    //stack();
 
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);

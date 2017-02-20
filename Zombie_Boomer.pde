@@ -26,8 +26,6 @@ class Boomer extends Zombie{
       }
     }
     for(int i = 0; i < 10; i++){
-      //fill(c, 150);
-      //ellipse(pos.x, pos.y, hSize*i, hSize*i);
       show();
     }
   }
