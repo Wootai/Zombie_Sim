@@ -12,7 +12,6 @@ Hero h;
 Zombie z;
 Obstacle o;
 float now = millis();
-float deltaTime;
 
 ArrayList<Common> commons;
 ArrayList<Hero> heroes;
@@ -71,9 +70,8 @@ void draw() {
   fill(255);
   hud();
   
-  deltaTime = millis() - now;
-  while(deltaTime < 20){
-    deltaTime = millis()-now;
+  while(deltaTime() < 20){
+    deltaTime();
   }
  
   

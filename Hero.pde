@@ -5,7 +5,7 @@ class Hero extends Actor{
   float fireRange = 80; // Number of pixels
   float fireSpeed = 150; // Number of milliseconds between shots.
   float moveSpeed = 0.6; 
-  float m;
+  float m = now;
    
   void update(){
     super.update();
@@ -28,8 +28,7 @@ class Hero extends Actor{
   }
   
   void shoot() {
-      m = millis();
-      println(m%fireSpeed);
+      
       if(m % fireSpeed < 20){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
