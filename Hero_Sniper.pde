@@ -12,20 +12,13 @@ class Sniper extends Hero{
   
   void shoot() {
     m = millis();
-    //println(m%fireSpeed);
     if(m % fireSpeed < 10){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         
         if (d < fireRange && d > minRange) {
-           //println(this + " shot " + zombies.get(i));
-           stroke(167, 240, 44);
-           strokeWeight(4);
-           line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-           zombies.get(i).special();
-           zombies.remove(i);
-           killCount++;
-           break;
+            super.kill(zombies.get(i)); 
+            break;
         }
       }
     }

@@ -1,5 +1,4 @@
- //<>//
-float cstart = 400; //<>//
+float cstart = 400; //<>// //<>//
 float hstart = 12; //<>//
 float zstart = 11; //<>//
 
@@ -59,6 +58,7 @@ void setup() {
 }
 
 void draw() {
+  println(frameRate/1000);
   background(51);
 
   update();

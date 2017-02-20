@@ -12,7 +12,7 @@ class Actor implements ActorI { //<>//
   Actor() {
 
     direction = PVector.random2D();
-    int count = 0;
+   
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
     while(!valid){

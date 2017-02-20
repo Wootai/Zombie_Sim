@@ -117,6 +117,6 @@ class Zombie extends Actor{
        } 
      } 
      
-  void special(){
+  void die(){
   }
 }

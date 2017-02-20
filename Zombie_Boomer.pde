@@ -9,7 +9,7 @@ class Boomer extends Zombie{
     exploding = false;
   }
   
-  void special(){
+  void die(){
     exploding = true;
     
     for (int i = commons.size() - 1; i >= 0; i--){

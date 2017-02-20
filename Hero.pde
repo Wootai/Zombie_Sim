@@ -35,17 +35,20 @@ class Hero extends Actor{
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         
         if (d < fireRange) {
-           //println(this + " shot " + zombies.get(i));
-           stroke(167, 240, 44);
-           strokeWeight(4);
-           line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-           zombies.get(i).special();
-           zombies.remove(i);
-           killCount++;
+           kill(zombies.get(i));
            break;
         }
       }
     }
+  }
+  
+  void kill(Zombie Z){
+      stroke(167, 240, 44);
+      strokeWeight(4);
+      line(Z.pos.x, Z.pos.y, pos.x, pos.y);
+      Z.die();
+      zombies.remove(Z);
+      killCount++;
   }
   
   void show() {
