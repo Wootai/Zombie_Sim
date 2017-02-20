@@ -20,7 +20,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
 void setup() {
-  frameRate(120);
+  frameRate(60);
   size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();

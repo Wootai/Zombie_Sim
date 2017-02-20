@@ -1,11 +1,8 @@
 class Obstacle{
 
     float x, y, len, wid;
-  
     float maxX;
     float maxY;
-    
-    
   
    Obstacle(float x_, float y_, float len_, float wid_){
      len = len_;

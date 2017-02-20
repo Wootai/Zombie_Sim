@@ -49,7 +49,7 @@ class Actor implements ActorI { //<>//
     for(Obstacle o: obstacles){
       if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-          direction.rotate(PI);
+          direction.rotate(random(HALF_PI, PI));
           pos.add(direction);
           pos.add(direction);
         }

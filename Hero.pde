@@ -30,7 +30,6 @@ class Hero extends Actor{
       shoot();  
     }
   }
-  
     
   void kill(Zombie Z){
       stroke(167, 240, 44);
