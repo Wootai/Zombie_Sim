@@ -119,4 +119,8 @@ class Zombie extends Actor{
      
   void die(){
   }
+  
+  void persuit(){}
+  void obstacleAvoid(){}
+
 }

@@ -45,4 +45,9 @@
    //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
    //}
  }
+
+  void wander(){ }
+  void evasion(){ }
+  void obstacleAvoidance() { }
+  
 }

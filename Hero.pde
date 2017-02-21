@@ -11,6 +11,7 @@ class Hero extends Actor{
    
   void update(){
     super.update();
+    
     direction.setMag(moveSpeed);
 
     for (Actor z : zombies) {
