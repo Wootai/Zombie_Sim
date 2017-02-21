@@ -7,7 +7,8 @@ class Sniper extends Hero{
      fireRange = 220;
      minRange = 90;
      c = color(125,0,200);
-     lastShot = 750;
+     lastShot = 1000;
+     shootTime = 750;
      
   }
   

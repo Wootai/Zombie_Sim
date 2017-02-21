@@ -1,6 +1,7 @@
  class Common extends Actor{
   
   color c = color(255,255,0);  
+  float runDist = 10*hSize;
   
   void update(){
     
@@ -9,7 +10,7 @@
 
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < 10*hSize) {
+          if (d < runDist) {
             PVector CZ = new PVector();
             CZ.set(pos); 
             CZ.sub(z.pos); 

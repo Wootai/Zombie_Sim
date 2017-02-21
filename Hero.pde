@@ -1,31 +1,39 @@
-class Hero extends Actor{
+class Hero extends Common{
    
   color c = color(255,0,0);
-  float killCount; 
-  float fireRange = 80; // Number of pixels
+  float killCount;
+  float runDist = 6*hSize;
+  float fireRange = 10; // Number of pixels
   float shootTime = 233; // Number of milliseconds between shots.
   float moveSpeed = 0.6; 
   float myNow = now;
   float lastShot;
   //float sinceLastShot;
    
+  Hero(){
+    shootTime = 233; // Number of milliseconds between shots.
+    moveSpeed = 0.6; 
+    c = color(255,0,0);
+
+  }
+   
   void update(){
     super.update();
     
     direction.setMag(moveSpeed);
 
-    for (Actor z : zombies) {
-      float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-      if (d < 6*hSize) {
-        PVector CZ = new PVector();
-        CZ.set(pos); 
-        CZ.sub(z.pos); 
-        CZ.rotate(random(-PI/6, PI/6)); 
-        CZ.normalize();
-        direction.set(CZ);
-      }
-    }
-    pos.add(direction);
+    //for (Actor z : zombies) {
+    //  float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
+    //  if (d < 6*hSize) {
+    //    PVector CZ = new PVector();
+    //    CZ.set(pos); 
+    //    CZ.sub(z.pos); 
+    //    CZ.rotate(random(-PI/6, PI/6)); 
+    //    CZ.normalize();
+    //    direction.set(CZ);
+    //  }
+    //}
+    //pos.add(direction);
 
     if(deltaTime(lastShot) > shootTime){
       shoot();  

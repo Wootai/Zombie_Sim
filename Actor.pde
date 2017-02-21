@@ -1,4 +1,5 @@
 class Actor implements ActorI { //<>//
+  
   float hSize = 10;
   color c = color(0, 0, 255);
   float r1;
@@ -7,13 +8,26 @@ class Actor implements ActorI { //<>//
   //boolean actValid = false;
 
 
-  PVector pos;
-  PVector direction;
+  
+//Simple Vehicle Model:
+//mass scalar
+//  position      vector
+//  velocity      vector
+//  max_force     scalar
+//  max_speed     scalar
+//  orientation   N basis vectors
+
+  float mass; // will equal 1 for now
+  PVector pos; //position same
+  PVector vel; //Velocity
+  float maxForce; //Maximum Force
+  float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
+  PVector direction; //Direction
+  
 
   Actor() {
 
     direction = PVector.random2D();
-   
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
     while(!obsValid){
