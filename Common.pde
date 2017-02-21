@@ -1,7 +1,12 @@
  class Common extends Actor{
   
-  color c = color(255,255,0);  
-  float runDist = 10*hSize;
+  color c;  
+  float runDist;
+  
+  Common(){
+   c = color(255,255,0);
+   runDist = 10*hSize;
+  }
   
   void update(){
     
@@ -39,12 +44,6 @@
  
  void show(){
    super.show(c);
-
-   //noStroke();
-   //for(int i = 5; i>0; i--){
-   //  fill(c, 10*i);    
-   //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
-   //}
  }
 
   void wander(){ }

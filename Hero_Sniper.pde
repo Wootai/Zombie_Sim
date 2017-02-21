@@ -1,13 +1,12 @@
 class Sniper extends Hero{
   
-  float minRange;
+  float minRange; // minimum distance for sniper
   
   Sniper(){
-    super();
+     super();
      fireRange = 220;
      minRange = 90;
      c = color(125,0,200);
-     lastShot = 1000;
      shootTime = 750;
      
   }
