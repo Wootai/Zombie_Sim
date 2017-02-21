@@ -1,15 +1,21 @@
  class Common extends Actor{
   
-  color c = color(255,255,0);  
+  color c;  
+  float runDist;
+  
+  Common(){
+   c = color(255,255,0);
+   runDist = 10*hSize;
+  }
   
   void update(){
     
     super.update();
-    //stack();
+    //stack();  This should be collision
 
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < 10*hSize) {
+          if (d < runDist) {
             PVector CZ = new PVector();
             CZ.set(pos); 
             CZ.sub(z.pos); 
@@ -38,11 +44,10 @@
  
  void show(){
    super.show(c);
-
-   //noStroke();
-   //for(int i = 5; i>0; i--){
-   //  fill(c, 10*i);    
-   //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
-   //}
  }
+
+  void wander(){ }
+  void evasion(){ }
+  void obstacleAvoidance() { }
+  
 }
