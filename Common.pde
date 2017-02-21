@@ -11,7 +11,7 @@
   void update(){
     
     super.update();
-    //stack();
+    //stack();  This should be collision
 
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
