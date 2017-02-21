@@ -1,11 +1,11 @@
-class Common extends Actor{
+ class Common extends Actor{
   
   color c = color(255,255,0);  
   
   void update(){
     
     super.update();
-    stack();
+    //stack();
 
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);

@@ -3,13 +3,14 @@ class Hero extends Actor{
   color c = color(255,0,0);
   float killCount; 
   float fireRange = 80; // Number of pixels
-  float fireSpeed = 150; // Number of milliseconds between shots. I want to untie this from framrate
+  float shootTime = 233; // Number of milliseconds between shots.
   float moveSpeed = 0.6; 
-  float m;
+  float myNow = now;
+  float lastShot;
+  //float sinceLastShot;
    
   void update(){
     super.update();
-    
     direction.setMag(moveSpeed);
 
     for (Actor z : zombies) {
@@ -24,25 +25,31 @@ class Hero extends Actor{
       }
     }
     pos.add(direction);
-    shoot();  
+
+    if(deltaTime(lastShot) > shootTime){
+      shoot();  
+    }
+  }
+    
+  void kill(Zombie Z){
+      stroke(167, 240, 44);
+      strokeWeight(4);
+      line(Z.pos.x, Z.pos.y, pos.x, pos.y);
+      Z.die();
+      zombies.remove(Z);
+      killCount++;
   }
   
   void shoot() {
-      for (int i = zombies.size() - 1; i >= 0; i--) {
-        d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-        m = millis();
-        if (d < fireRange && m % fireSpeed < 10) {
-           //println(this + " shot " + zombies.get(i));
-           stroke(167, 240, 44);
-           strokeWeight(4);
-           line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-           zombies.get(i).special();
-           zombies.remove(i);
-           killCount++;
-           break;
+        for (int i = zombies.size() - 1; i >= 0; i--) {
+          d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);           
+          if (d < fireRange) {
+             kill(zombies.get(i));
+             lastShot = millis();
+             break;
+          }
         }
       }
-    }
   
   void show() {
     noStroke();
@@ -52,5 +59,4 @@ class Hero extends Actor{
     }
     super.show(c);
   }
-  
 }

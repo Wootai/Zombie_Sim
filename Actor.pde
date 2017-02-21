@@ -3,28 +3,33 @@ class Actor implements ActorI { //<>//
   color c = color(0, 0, 255);
   float r1;
   float d;
+  boolean obsValid = false;
+  //boolean actValid = false;
 
-  PVector pos = PVector.random2D();
-    
+
+  PVector pos;
   PVector direction;
 
   Actor() {
 
     direction = PVector.random2D();
-    
-    boolean valid = false;
-    
-    while(!valid){
-      pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+   
+    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+
+    while(!obsValid){
       for(Obstacle o: obstacles){
-        if (pos.x > o.x - hSize * 2 && pos.x  < o.maxX + hSize * 2
-            && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-            valid = false;
+          if (pos.x > o.x - hSize * 2
+              && pos.x  < o.maxX + hSize * 2
+              && pos.y  > o.y - hSize * 2 
+              && pos.y < o.maxY + hSize * 2){ 
+              obsValid = false;
+              pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+  
+            }
+           else {obsValid = true;}
           }
-         else {valid = true;}
         }
-      }     
-    }
+      }
 
   void update() {
 
@@ -44,14 +49,12 @@ class Actor implements ActorI { //<>//
     for(Obstacle o: obstacles){
       if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-          direction.rotate(PI);
+          direction.rotate(random(HALF_PI, PI));
           pos.add(direction);
           pos.add(direction);
         }
       }
     
-
-
     if (pos.x + hSize*.5 > width || pos.x - hSize*.5 < 0 || pos.y + hSize*.5 > height || pos.y - hSize*.5 < 0) {
       direction.rotate(PI);
       pos.add(direction);
@@ -62,12 +65,11 @@ class Actor implements ActorI { //<>//
   void show(color c) {
     stroke(0);
     strokeWeight(1);
-    //noStroke();
-    fill(c);    
+    fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);
+    line(pos.x, pos.y, pos.x+direction.x*20, pos.y+direction.y*20);
+
   }
  
-  void validate(){
-  
-  }
+  void validate(){ }
 }
