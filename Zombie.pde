@@ -88,7 +88,7 @@ class Zombie extends Actor{
 
   void zombifie(Object o){
      z = new Zombie();
-     if(o instanceof Common){
+     if(o instanceof Common && !(o instanceof Hero) ){
        z.pos.x = commons.get(commons.indexOf(o)).pos.x;
        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
        zombies.add(z);
@@ -119,4 +119,8 @@ class Zombie extends Actor{
      
   void die(){
   }
+  
+  void persuit(){}
+  void obstacleAvoid(){}
+
 }
