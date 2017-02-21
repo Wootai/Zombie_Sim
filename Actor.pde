@@ -19,15 +19,14 @@ class Actor implements ActorI { //<>//
 
   float mass; // will equal 1 for now
   PVector pos; //position same
-  PVector vel; //Velocity
   float maxForce; //Maximum Force
   float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
-  PVector direction; //Direction
+  PVector vel; //Direction
   
 
   Actor() {
 
-    direction = PVector.random2D();
+    vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
     while(!obsValid){
@@ -63,16 +62,16 @@ class Actor implements ActorI { //<>//
     for(Obstacle o: obstacles){
       if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-          direction.rotate(random(HALF_PI, PI));
-          pos.add(direction);
-          pos.add(direction);
+          vel.rotate(random(HALF_PI, PI));
+          pos.add(vel);
+          pos.add(vel);
         }
       }
     
     if (pos.x + hSize*.5 > width || pos.x - hSize*.5 < 0 || pos.y + hSize*.5 > height || pos.y - hSize*.5 < 0) {
-      direction.rotate(PI);
-      pos.add(direction);
-      pos.add(direction);
+      vel.rotate(PI);
+      pos.add(vel);
+      pos.add(vel);
     }
   }
 
@@ -81,7 +80,7 @@ class Actor implements ActorI { //<>//
     strokeWeight(1);
     fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);
-    line(pos.x, pos.y, pos.x+direction.x*20, pos.y+direction.y*20);
+    line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }
  

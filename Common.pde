@@ -21,11 +21,11 @@
             CZ.sub(z.pos); 
             CZ.rotate(random(-PI/6, PI/6)); 
             CZ.normalize();
-            direction.set(CZ);
+            vel.set(CZ);
           }
         }
      
-     pos.add(direction);
+     pos.add(vel);
 
   }
   
@@ -36,8 +36,8 @@
          break;
        }
        if (d < 2*hSize) {
-         commons.get(i).direction.rotate(PI+(random(1)));
-         commons.get(i).pos.add(commons.get(i).direction.normalize());
+         commons.get(i).vel.rotate(PI+(random(1)));
+         commons.get(i).pos.add(commons.get(i).vel.normalize());
        }
      } 
    } 

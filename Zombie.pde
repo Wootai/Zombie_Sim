@@ -53,10 +53,10 @@ class Zombie extends Actor{
     }
     
     PVector ZP = new PVector(minX - pos.x, minY - pos.y);
-    direction = ZP;
-    direction.setMag(zombieSpeed);
+    vel = ZP;
+    vel.setMag(zombieSpeed);
 
-    pos.add(direction);
+    pos.add(vel);
     prevMinDist = mindDist;
    
    bite();
@@ -111,8 +111,8 @@ class Zombie extends Actor{
            break;
          }
          if (d < hSize+1) {
-           zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
-           zombies.get(i).pos.add(zombies.get(i).direction);
+           zombies.get(i).vel.rotate(random(PI*3/4, PI*5/4));
+           zombies.get(i).pos.add(zombies.get(i).vel);
          }
        } 
      } 

@@ -23,7 +23,7 @@ class Hero extends Common{
    
   void update(){
     super.update();
-    direction.setMag(moveSpeed);
+    vel.setMag(moveSpeed);
  
     if(deltaTime(lastShot) > shootTime){
       shoot();  
