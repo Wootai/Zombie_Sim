@@ -84,8 +84,42 @@ class Actor implements ActorI { //<>//
 
   }
  
-  void validate(){ }
-
+  PVector persue(PVector target){
+  
+    PVector t = target.copy();
+    PVector desired = t.sub(pos);
+    float d = desired.mag();
+    float speed = maxSpeed;
+        
+    desired.setMag(speed);
+    PVector steer = desired.sub(vel);
+    steer.limit(100);
+    return steer;
+  }
+  
+  PVector flee(PVector target){return target;}
+  
+  PVector follow(PVector target){return target;}
+  
+  PVector wander(PVector target){return target;}
+  
+  PVector arrive(PVector target) {
+    PVector t = target.copy();
+    PVector desired = t.sub(pos);
+    float d = desired.mag();
+    float speed = maxSpeed;
+    
+    if (d < 100) {
+      speed = map(d, 0, 100, 0, maxSpeed);
+    }
+    
+    desired.setMag(speed);
+    PVector steer = desired.sub(vel);
+    steer.limit(1);
+    return steer;
+  }
+  
+  
   
 
 }

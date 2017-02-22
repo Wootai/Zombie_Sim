@@ -56,10 +56,10 @@ void setup() {
     else{ //<>// //<>//
     h = new Hero();
   }
-    heroes.add(h); //<>// //<>//
-  } //<>// //<>//
-} //<>// //<>// //<>// //<>//
-
+    heroes.add(h);  //<>//
+  }  //<>//
+}
+ //<>//
 void draw() {
   //println(frameRate/1000);
   background(51);

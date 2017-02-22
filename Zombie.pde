@@ -52,11 +52,16 @@ class Zombie extends Actor{
       }
     }
     
-    PVector ZP = new PVector(minX - pos.x, minY - pos.y);
-    vel = ZP;
-    vel.setMag(zombieSpeed);
-
-    pos.add(vel);
+    PVector persue = new PVector(minX, minY);
+    
+    //super.persue(persue);
+    //PVector ZP = new PVector(minX - pos.x, minY - pos.y);
+    //vel = ZP;
+    //vel.setMag(zombieSpeed);
+    //pos.add(vel);
+    
+    pos.add(super.persue(persue));
+    
     prevMinDist = mindDist;
    
    bite();
