@@ -3,37 +3,50 @@
   color c;  
   float runDist;
   Zombie flee;
+  float minDist;
   
   Common(){
    c = color(255,255,0);
    runDist = 10*hSize;
+   maxForce = 10;
+   minDist = width*height;
+
   }
   
   void update(){
     
     super.update();
+    
     //stack();  This should be collision
 
-    for (Zombie z : zombies) {
-       d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < runDist) {
+//    for (Zombie z : zombies) {
+//       d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
+//          if (d < runDist) {
             
-            flee = z;
-            break;
-            //PVector CZ = new PVector();
-            //CZ.set(pos); 
-            //CZ.sub(z.pos); 
-            //CZ.rotate(random(-PI/6, PI/6)); 
-            //CZ.normalize();
-            //vel.set(CZ);
-          }
-        }
+//            flee = z;
+//            break;
+//            //PVector CZ = new PVector();
+//            //CZ.set(pos); 
+//            //CZ.sub(z.pos); 
+//            //CZ.rotate(random(-PI/6, PI/6)); 
+//            //CZ.normalize();
+//            //vel.set(CZ);
+//          }
+//        }
+
+    for (int i = zombies.size()-1; i>=0; i--){
+      d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
+      if (d < minDist) {
+        minDist = d;
+        flee = zombies.get(i);
+      }
+    }
+    
      if(flee instanceof Zombie){
        vel.add(super.flee(flee.pos));
      }
-     pos.add(vel);
      
-
+     pos.add(vel);
   }
   
   void stack() {

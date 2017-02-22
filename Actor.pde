@@ -63,7 +63,7 @@ class Actor implements ActorI { //<>//
     for(Obstacle o: obstacles){
       if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
             && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-          vel.rotate(random(HALF_PI, PI));
+          vel.rotate(random(PI));
           pos.add(vel);
           pos.add(vel);
         }
@@ -85,13 +85,12 @@ class Actor implements ActorI { //<>//
 
   }
  
-  
+  //Persuit Steering---------------
   
   PVector persue(PVector target){
   
     PVector t = target.copy();
     PVector desired = t.sub(pos);
-    float d = desired.mag();
     float speed = maxSpeed;
         
     desired.setMag(speed);
@@ -100,10 +99,11 @@ class Actor implements ActorI { //<>//
     return steer;
   }
   
+  //Flee Steering -----------------
+  
   PVector flee(PVector target){  
     PVector t = target.copy();
     PVector desired = t.sub(pos);
-    float d = desired.mag();
     float speed = maxSpeed;
         
     desired.setMag(speed);
@@ -113,9 +113,7 @@ class Actor implements ActorI { //<>//
     return steer;
   }
   
-  PVector follow(PVector target){return target;}
-  
-  PVector wander(PVector target){return target;}
+  //Arrive Steering ----------------
   
   PVector arrive(PVector target) {
     PVector t = target.copy();
@@ -133,7 +131,9 @@ class Actor implements ActorI { //<>//
     return steer;
   }
   
+  PVector follow(PVector target){return target;}
+  
+  PVector wander(PVector target){return target;}
   
   
-
 }

@@ -23,13 +23,10 @@ class Zombie extends Actor{
         
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
-      //closestC = i;
       d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
-       // minX = commons.get(i).pos.x;
-       // minY = commons.get(i).pos.y;
       }
     }
     
@@ -39,36 +36,15 @@ class Zombie extends Actor{
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
-        //minX = heroes.get(i).pos.x;
-        //minY = heroes.get(i).pos.y;
       }
     }
     
-    //if(heroes.size()>0){
-    //  if(heroes.contains(heroes.get(closestH)) == false){
-    //    update();
-    //  }
-    //}
-    
-    //if(commons.size()>0){
-    //  if(commons.contains(commons.get(closestC)) == false ){
-    //    update();
-    //  }
-    //}
-        
-    //super.persue(persue);
-    //PVector ZP = new PVector(minX - pos.x, minY - pos.y);
-    //vel = ZP;
-    //vel.setMag(zombieSpeed);
-    //pos.add(vel);
-    
     vel.add(super.persue(victim));
     pos.add(vel);
-    
     prevMinDist = mindDist;
    
-   bite();
-   stack();
+    bite();
+    stack();
   
   }
   

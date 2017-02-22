@@ -1,6 +1,6 @@
-float cstart = 100;  //<>//
+float cstart = 1;  //<>//
 float hstart = 0;  //<>//
-float zstart = 50;  //<>//
+float zstart = 1;  //<>//
 
 float obStart = 4;
 
@@ -52,8 +52,8 @@ void setup() {
   for (int i = 1; i < hstart+1; i++) {
     if(i % 3 == 0){
     h = new Sniper();
-    } //<>// //<>//
-    else{ //<>// //<>//
+    }  //<>//
+    else{  //<>//
     h = new Hero();
   }
     heroes.add(h);  //<>//
