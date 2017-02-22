@@ -7,8 +7,6 @@ class Actor implements ActorI { //<>//
   boolean obsValid = false;
   //boolean actValid = false;
 
-
-  
 //Simple Vehicle Model:
 //mass scalar
 //  position      vector
@@ -25,7 +23,10 @@ class Actor implements ActorI { //<>//
   
 
   Actor() {
-
+    mass = 1;
+    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+    maxForce = .1;
+    maxSpeed = 1;
     vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
 
@@ -84,6 +85,8 @@ class Actor implements ActorI { //<>//
 
   }
  
+  
+  
   PVector persue(PVector target){
   
     PVector t = target.copy();
@@ -93,11 +96,22 @@ class Actor implements ActorI { //<>//
         
     desired.setMag(speed);
     PVector steer = desired.sub(vel);
-    steer.limit(100);
+    steer.limit(maxForce);
     return steer;
   }
   
-  PVector flee(PVector target){return target;}
+  PVector flee(PVector target){  
+    PVector t = target.copy();
+    PVector desired = t.sub(pos);
+    float d = desired.mag();
+    float speed = maxSpeed;
+        
+    desired.setMag(speed);
+    PVector steer = desired.sub(vel);
+    steer.limit(maxForce);
+    steer.mult(-1);
+    return steer;
+  }
   
   PVector follow(PVector target){return target;}
   
@@ -115,7 +129,7 @@ class Actor implements ActorI { //<>//
     
     desired.setMag(speed);
     PVector steer = desired.sub(vel);
-    steer.limit(1);
+    steer.limit(maxForce);
     return steer;
   }
   

@@ -4,13 +4,15 @@ class Zombie extends Actor{
   float mindDist = height * width; 
   float minX = 0;
   float minY = 0;
-  float zombieSpeed = 1.2;
   int closestC;
   int closestH;
   float prevMinDist;   
+  PVector victim;
      
   Zombie(){
    super();
+   maxSpeed = 1.2;
+   maxForce = .02;
   }
      
   void update() { //<>// //<>//
@@ -21,46 +23,47 @@ class Zombie extends Actor{
         
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
-      closestC = i;
+      //closestC = i;
       d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
       if (d < mindDist) {
         mindDist = d;
-        minX = commons.get(i).pos.x;
-        minY = commons.get(i).pos.y;
+        victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
+       // minX = commons.get(i).pos.x;
+       // minY = commons.get(i).pos.y;
       }
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      closestH = i;
+      //closestH = i;
       d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>// //<>//
       if (d < mindDist) {
         mindDist = d;
-        minX = heroes.get(i).pos.x;
-        minY = heroes.get(i).pos.y;
+        victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
+        //minX = heroes.get(i).pos.x;
+        //minY = heroes.get(i).pos.y;
       }
     }
     
-    if(heroes.size()>0){
-      if(heroes.contains(heroes.get(closestH)) == false){
-        update();
-      }
-    }
+    //if(heroes.size()>0){
+    //  if(heroes.contains(heroes.get(closestH)) == false){
+    //    update();
+    //  }
+    //}
     
-    if(commons.size()>0){
-      if(commons.contains(commons.get(closestC)) == false ){
-        update();
-      }
-    }
-    
-    PVector persue = new PVector(minX, minY);
-    
+    //if(commons.size()>0){
+    //  if(commons.contains(commons.get(closestC)) == false ){
+    //    update();
+    //  }
+    //}
+        
     //super.persue(persue);
     //PVector ZP = new PVector(minX - pos.x, minY - pos.y);
     //vel = ZP;
     //vel.setMag(zombieSpeed);
     //pos.add(vel);
     
-    pos.add(super.persue(persue));
+    vel.add(super.persue(victim));
+    pos.add(vel);
     
     prevMinDist = mindDist;
    
@@ -125,7 +128,6 @@ class Zombie extends Actor{
   void die(){
   }
   
-  void persuit(){}
-  void obstacleAvoid(){}
+
 
 }

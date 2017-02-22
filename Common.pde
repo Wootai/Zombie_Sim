@@ -2,6 +2,7 @@
   
   color c;  
   float runDist;
+  Zombie flee;
   
   Common(){
    c = color(255,255,0);
@@ -16,16 +17,22 @@
     for (Zombie z : zombies) {
        d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
           if (d < runDist) {
-            PVector CZ = new PVector();
-            CZ.set(pos); 
-            CZ.sub(z.pos); 
-            CZ.rotate(random(-PI/6, PI/6)); 
-            CZ.normalize();
-            vel.set(CZ);
+            
+            flee = z;
+            break;
+            //PVector CZ = new PVector();
+            //CZ.set(pos); 
+            //CZ.sub(z.pos); 
+            //CZ.rotate(random(-PI/6, PI/6)); 
+            //CZ.normalize();
+            //vel.set(CZ);
           }
         }
-     
+     if(flee instanceof Zombie){
+       vel.add(super.flee(flee.pos));
+     }
      pos.add(vel);
+     
 
   }
   

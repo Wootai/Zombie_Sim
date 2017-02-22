@@ -16,7 +16,7 @@ void hud(){
 
 //Resets sim when zombies or Heroes are all dead
 void score(){
-  if (heroes.size() == 0)  {zwincount++; setup();}
+  if (commons.size() == 0)  {zwincount++; setup();}
   if (zombies.size() == 0) {hwincount++; setup();}
   
 }

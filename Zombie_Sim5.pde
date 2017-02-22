@@ -1,6 +1,6 @@
-float cstart = 400;  //<>//
-float hstart = 10;  //<>//
-float zstart = 5;  //<>//
+float cstart = 100;  //<>//
+float hstart = 0;  //<>//
+float zstart = 50;  //<>//
 
 float obStart = 4;
 
