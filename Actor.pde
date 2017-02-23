@@ -104,12 +104,13 @@ class Actor implements ActorI { //<>//
   PVector flee(PVector target){  
     PVector t = target.copy();
     PVector desired = t.sub(pos);
+    desired.mult(-1);
     float speed = maxSpeed;
         
     desired.setMag(speed);
     PVector steer = desired.sub(vel);
     steer.limit(maxForce);
-    steer.mult(-1);
+    //steer.rotate(PI);
     return steer;
   }
   
