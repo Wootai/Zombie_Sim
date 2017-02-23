@@ -159,5 +159,13 @@ class Actor implements ActorI { //<>//
   
   PVector wander(PVector target){return target;}
   
+  PVector flock(PVector target){
+    
+    PVector t = target.copy();
+    PVector desired = t.sub(pos);
+    PVector steer = desired.setMag(maxSpeed);
+    
+    return steer;
+  }
   
 }

@@ -31,7 +31,6 @@ class Zombie extends Actor{
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      //closestH = i;
       d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>// //<>//
       if (d < mindDist) {
         mindDist = d;
@@ -44,11 +43,20 @@ class Zombie extends Actor{
     prevMinDist = mindDist;
    
     bite();
+    for (Zombie z: zombies){
+      if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*20){
+        line(pos.x, pos.y, z.pos.x, z.pos.y);
+        flock(z.pos);
+      }
+   }
+      
+       
     stack();
   
   }
   
   void show() {
+    line(pos.x, pos.y, victim.x, victim.y);
     super.show(c);
   }
   
