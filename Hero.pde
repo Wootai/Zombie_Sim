@@ -6,6 +6,7 @@ class Hero extends Common{
   float shootTime; // Number of milliseconds between shots.
   float moveSpeed; 
   float lastShot;
+  
    
   Hero(){
     super();
