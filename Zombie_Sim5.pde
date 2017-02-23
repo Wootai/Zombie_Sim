@@ -1,6 +1,6 @@
-float cstart = 1;  //<>//
-float hstart = 0;  //<>//
-float zstart = 1;  //<>//
+float cstart = 100;  //<>//
+float hstart = 10;  //<>//
+float zstart = 15;  //<>//
 
 float obStart = 4;
 
@@ -66,7 +66,7 @@ void draw() {
   
   now = millis();
 
-//  score();
+  score();
   update();
   display();
   fill(255);

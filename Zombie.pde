@@ -31,7 +31,7 @@ class Zombie extends Actor{
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>// //<>//
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>//
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
@@ -45,7 +45,7 @@ class Zombie extends Actor{
     bite();
     for (Zombie z: zombies){
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*20){
-        line(pos.x, pos.y, z.pos.x, z.pos.y);
+        line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
         flock(z.pos);
       }
    }
@@ -56,7 +56,9 @@ class Zombie extends Actor{
   }
   
   void show() {
-    line(pos.x, pos.y, victim.x, victim.y);
+    if(victim.){
+      line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
+    }
     super.show(c);
   }
   
