@@ -1,48 +1,46 @@
-class Hero extends Actor{
+class Hero extends Common{
    
   color c = color(255,0,0);
-  float killCount; 
-  float fireRange = 80; // Number of pixels
-  float fireSpeed = 150; // Number of milliseconds between shots. I want to untie this from framrate
-  float moveSpeed = 0.6; 
-  float m;
+  float killCount;
+  float fireRange; // distance it can kill zombies at.
+  float shootTime; // Number of milliseconds between shots.
+  float moveSpeed; 
+  float lastShot;
+  
+   
+  Hero(){
+    super();
+    killCount = 0;
+    shootTime = 500; // Number of milliseconds between shots.
+    moveSpeed = 0.6; 
+    c = color(255,0,0);
+    lastShot = millis();
+    runDist = 6*hSize;
+    fireRange = 80;
+    moveSpeed = 0.6;
+    fireRange = 80;
+
+  }
    
   void update(){
     super.update();
-    
-    direction.setMag(moveSpeed);
-
-    for (Actor z : zombies) {
-      float d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-      if (d < 6*hSize) {
-        PVector CZ = new PVector();
-        CZ.set(pos); 
-        CZ.sub(z.pos); 
-        CZ.rotate(random(-PI/6, PI/6)); 
-        CZ.normalize();
-        direction.set(CZ);
-      }
+    vel.setMag(moveSpeed);
+ 
+    if(deltaTime(lastShot) > shootTime){
+      shoot();  
     }
-    pos.add(direction);
-    shoot();  
   }
-  
-  void shoot() {
-      for (int i = zombies.size() - 1; i >= 0; i--) {
-        d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
-        m = millis();
-        if (d < fireRange && m % fireSpeed < 10) {
-           //println(this + " shot " + zombies.get(i));
-           stroke(167, 240, 44);
-           strokeWeight(4);
-           line(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-           zombies.get(i).special();
-           zombies.remove(i);
-           killCount++;
-           break;
+    
+ void shoot() {
+        for (int i = zombies.size() - 1; i >= 0; i--) {
+          d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);           
+          if (d < fireRange) {
+             kill(zombies.get(i));
+             lastShot = millis();
+             break;
+          }
         }
       }
-    }
   
   void show() {
     noStroke();
@@ -51,6 +49,15 @@ class Hero extends Actor{
       ellipse(pos.x, pos.y, hSize+killCount, hSize+killCount);
     }
     super.show(c);
+  }
+  
+  void kill(Zombie Z){
+      stroke(167, 240, 44);
+      strokeWeight(4);
+      line(Z.pos.x, Z.pos.y, pos.x, pos.y);
+      Z.die();
+      zombies.remove(Z);
+      killCount++;
   }
   
 }

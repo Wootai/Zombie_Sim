@@ -1,26 +1,32 @@
-class Common extends Actor{
+ class Common extends Actor{
   
-  color c = color(255,255,0);  
+  color c;  
+  float runDist;
+  PVector flee;
+  float minDist;
+  
+  Common(){
+   c = color(255,255,0);
+   runDist = 10*hSize;
+   maxForce = 10;
+   minDist = width*height;
+
+  }
   
   void update(){
     
     super.update();
-    stack();
-
-    for (Zombie z : zombies) {
-       d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < 10*hSize) {
-            PVector CZ = new PVector();
-            CZ.set(pos); 
-            CZ.sub(z.pos); 
-            CZ.rotate(random(-PI/6, PI/6)); 
-            CZ.normalize();
-            direction.set(CZ);
-          }
-        }
-     
-     pos.add(direction);
-
+    
+    for (int i = zombies.size()-1; i>=0; i--){
+      d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
+      if (d < runDist) {
+        flee = zombies.get(i).pos;
+        vel.add(flee(flee));
+      }
+    }
+    
+   
+   pos.add(vel);
   }
   
   void stack() {
@@ -30,19 +36,18 @@ class Common extends Actor{
          break;
        }
        if (d < 2*hSize) {
-         commons.get(i).direction.rotate(PI+(random(1)));
-         commons.get(i).pos.add(commons.get(i).direction.normalize());
+         commons.get(i).vel.rotate(PI+(random(1)));
+         commons.get(i).pos.add(commons.get(i).vel.normalize());
        }
      } 
    } 
  
  void show(){
    super.show(c);
-
-   //noStroke();
-   //for(int i = 5; i>0; i--){
-   //  fill(c, 10*i);    
-   //  ellipse(pos.x, pos.y, hsize+i, hsize+i);
-   //}
  }
+
+  void wander(){ }
+  void evasion(){ }
+  void obstacleAvoidance() { }
+  
 }
