@@ -56,7 +56,7 @@ class Zombie extends Actor{
   }
   
   void show() {
-    if(victim.){
+    if(victim != null){
       line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
     }
     super.show(c);
