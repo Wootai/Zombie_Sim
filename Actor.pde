@@ -1,4 +1,4 @@
-class Actor implements ActorI { //<>//
+class Actor implements ActorI { //<>// //<>//
   
   float mass;
   float energy;
@@ -24,7 +24,7 @@ class Actor implements ActorI { //<>//
   Actor() {
     mass = 1;
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
-    maxForce = .1;
+    maxForce = 1;
     maxSpeed = 1;
     vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
@@ -114,7 +114,7 @@ class Actor implements ActorI { //<>//
     PVector desired = PVector.sub(target, pos); // A vector pointing from current location to the target
     float distance = mag2(desired); // Distance from the target is the magnitude of the vector
     // If the distance is greater than 0, calc steering (otherwise return zero vector)
-    if (distance > 0 && distance < (hSize*100)*(hSize*100)) {
+    if (distance > 0 && distance < (hSize)*2) {
       desired.normalize(); // Normalize desired
       desired.mult(maxForce);
       steer = PVector.sub(vel, desired); // Steering = Desired minus Velocity

@@ -12,10 +12,10 @@ class Zombie extends Actor{
   Zombie(){
    super();
    maxSpeed = 1.2;
-   maxForce = .2;
+   maxForce = 1.2;
   }
      
-  void update() { //<>// //<>//
+  void update() { //<>//
     
     super.update();
     
@@ -31,21 +31,21 @@ class Zombie extends Actor{
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>//
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>// //<>//
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
       }
     }
     
-    vel.add(super.pursue(victim));
+    vel.add(super.seek(victim));
     pos.add(vel);
     prevMinDist = mindDist;
    
     bite();
     for (Zombie z: zombies){
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*5){
-        line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
+        //line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
         //flock(z.pos);
       }
    }
