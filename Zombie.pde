@@ -4,16 +4,18 @@ class Zombie extends Actor{
   float mindDist = height * width; 
   float minX = 0;
   float minY = 0;
-  float zombieSpeed = 1.2;
   int closestC;
   int closestH;
   float prevMinDist;   
+  PVector victim;
      
   Zombie(){
    super();
+   maxSpeed = 1.2;
+   maxForce = 1.2;
   }
      
-  void update() { //<>// //<>//
+  void update() { //<>//
     
     super.update();
     
@@ -21,50 +23,42 @@ class Zombie extends Actor{
         
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
-      closestC = i;
       d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
       if (d < mindDist) {
         mindDist = d;
-        minX = commons.get(i).pos.x;
-        minY = commons.get(i).pos.y;
+        victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
       }
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      closestH = i;
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); //<>// //<>//
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>// //<>//
       if (d < mindDist) {
         mindDist = d;
-        minX = heroes.get(i).pos.x;
-        minY = heroes.get(i).pos.y;
+        victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
       }
     }
     
-    if(heroes.size()>0){
-      if(heroes.contains(heroes.get(closestH)) == false){
-        update();
-      }
-    }
-    
-    if(commons.size()>0){
-      if(commons.contains(commons.get(closestC)) == false ){
-        update();
-      }
-    }
-    
-    PVector ZP = new PVector(minX - pos.x, minY - pos.y);
-    direction = ZP;
-    direction.setMag(zombieSpeed);
-
-    pos.add(direction);
+    vel.add(super.seek(victim));
+    pos.add(vel);
     prevMinDist = mindDist;
    
-   bite();
-   stack();
+    bite();
+    for (Zombie z: zombies){
+      if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*5){
+        //line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
+        //flock(z.pos);
+      }
+   }
+      
+       
+    stack();
   
   }
   
   void show() {
+    if(victim != null){
+      line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
+    }
     super.show(c);
   }
   
@@ -111,8 +105,8 @@ class Zombie extends Actor{
            break;
          }
          if (d < hSize+1) {
-           zombies.get(i).direction.rotate(random(PI*3/4, PI*5/4));
-           zombies.get(i).pos.add(zombies.get(i).direction);
+           zombies.get(i).vel.rotate(random(PI*3/4, PI*5/4));
+           zombies.get(i).pos.add(zombies.get(i).vel);
          }
        } 
      } 
@@ -120,7 +114,6 @@ class Zombie extends Actor{
   void die(){
   }
   
-  void persuit(){}
-  void obstacleAvoid(){}
+
 
 }

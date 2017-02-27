@@ -6,11 +6,12 @@ class Hero extends Common{
   float shootTime; // Number of milliseconds between shots.
   float moveSpeed; 
   float lastShot;
+  
    
   Hero(){
     super();
     killCount = 0;
-    shootTime = 233; // Number of milliseconds between shots.
+    shootTime = 500; // Number of milliseconds between shots.
     moveSpeed = 0.6; 
     c = color(255,0,0);
     lastShot = millis();
@@ -23,7 +24,7 @@ class Hero extends Common{
    
   void update(){
     super.update();
-    direction.setMag(moveSpeed);
+    vel.setMag(moveSpeed);
  
     if(deltaTime(lastShot) > shootTime){
       shoot();  

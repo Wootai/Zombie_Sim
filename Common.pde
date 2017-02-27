@@ -2,31 +2,28 @@
   
   color c;  
   float runDist;
+  PVector flee;
+  float minDist;
   
   Common(){
    c = color(255,255,0);
    runDist = 10*hSize;
+   maxForce = 5;
+   minDist = width*height;
+
   }
   
   void update(){
-    
+    //acc.set(0,0,0);
     super.update();
-    //stack();  This should be collision
-
-    for (Zombie z : zombies) {
-       d = dist(z.pos.x, z.pos.y, pos.x, pos.y);
-          if (d < runDist) {
-            PVector CZ = new PVector();
-            CZ.set(pos); 
-            CZ.sub(z.pos); 
-            CZ.rotate(random(-PI/6, PI/6)); 
-            CZ.normalize();
-            direction.set(CZ);
-          }
-        }
-     
-     pos.add(direction);
-
+    
+    for (int i = zombies.size()-1; i>=0; i--){
+      println(acc);
+      acc.add(flee(zombies.get(i).pos));
+    }
+    
+   vel.add(acc);
+   pos.add(vel);
   }
   
   void stack() {
@@ -36,8 +33,8 @@
          break;
        }
        if (d < 2*hSize) {
-         commons.get(i).direction.rotate(PI+(random(1)));
-         commons.get(i).pos.add(commons.get(i).direction.normalize());
+         commons.get(i).vel.rotate(PI+(random(1)));
+         commons.get(i).pos.add(commons.get(i).vel.normalize());
        }
      } 
    } 

@@ -16,7 +16,26 @@ void hud(){
 
 //Resets sim when zombies or Heroes are all dead
 void score(){
-  if (heroes.size() == 0)  {zwincount++; setup();}
+  if (commons.size() == 0)  {zwincount++; setup();}
   if (zombies.size() == 0) {hwincount++; setup();}
   
+}
+
+void vectorLine(PVector V1, PVector V2){
+  line(V1.x, V1.y, V2.x, V2.y);
+}
+
+void vectorBox(PVector V1, PVector V2, PVector V3, PVector V4){
+     vectorLine(V1,V2);
+     vectorLine(V2, V3);
+     vectorLine(V3, V4);
+     vectorLine(V4, V1);
+}
+
+float dist2(PVector v1, PVector v2) {
+  return ((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y) + (v1.z - v2.z)*(v1.z - v2.z));
+}
+
+float mag2(PVector v) {
+  return (v.x*v.x + v.y*v.y + v.z*v.z);
 }
