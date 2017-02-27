@@ -38,7 +38,7 @@ class Zombie extends Actor{
       }
     }
     
-    vel.add(super.persue(victim));
+    vel.add(super.pursue(victim));
     pos.add(vel);
     prevMinDist = mindDist;
    
@@ -46,7 +46,7 @@ class Zombie extends Actor{
     for (Zombie z: zombies){
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*5){
         line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
-        flock(z.pos);
+        //flock(z.pos);
       }
    }
       

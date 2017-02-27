@@ -31,3 +31,11 @@ void vectorBox(PVector V1, PVector V2, PVector V3, PVector V4){
      vectorLine(V3, V4);
      vectorLine(V4, V1);
 }
+
+float dist2(PVector v1, PVector v2) {
+  return ((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y) + (v1.z - v2.z)*(v1.z - v2.z));
+}
+
+float mag2(PVector v) {
+  return (v.x*v.x + v.y*v.y + v.z*v.z);
+}

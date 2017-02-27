@@ -1,25 +1,23 @@
 class Actor implements ActorI { //<>//
   
+  float mass;
+  float energy;
+  PVector pos; // Position
+  PVector vel; // Velocity
+  PVector acc; // Acceleration
+  int type; // Agent type
+  float wdelta; // Wander delta
+  int action; // Current action
+  int prey; // Predator's target
+  
   float hSize = 10;
   color c = color(0, 0, 255);
   float r1;
   float d;
   boolean obsValid = false;
-  //boolean actValid = false;
 
-//Simple Vehicle Model:
-//mass scalar
-//  position      vector
-//  velocity      vector
-//  max_force     scalar
-//  max_speed     scalar
-//  orientation   N basis vectors
-
-  float mass; // will equal 1 for now
-  PVector pos; //position same
   float maxForce; //Maximum Force
   float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
-  PVector vel; //Direction
   PVector feeler; // feeler vector for collision detection
   
 
@@ -30,8 +28,8 @@ class Actor implements ActorI { //<>//
     maxSpeed = 1;
     vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
-    
     feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
+
     
     while(!obsValid){
       for(Obstacle o: obstacles){
@@ -50,7 +48,8 @@ class Actor implements ActorI { //<>//
 
   void update() {
     
-    feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
+    feeler.x = pos.x+vel.x*20;
+    feeler.y = pos.y+vel.y*20;
 
     if (feeler.x > width) {
       pos.x = width-hSize+1;
@@ -69,23 +68,9 @@ class Actor implements ActorI { //<>//
       
       if (feeler.x > o.x && feeler.x < o.maxX
             && feeler.y  > o.y && pos.y < o.maxY){
-              flee(feeler);
-            //PVector t = feeler.copy();
-            //PVector desired = t.mult(-1);
-            //PVector steer = desired.sub(vel);
-            //println(pos.x + " " + pos.y);
-            //vel.add(steer);          
+              flee(feeler);          
         }
-        
-
-      
-      //if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
-      //      && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-      //    vel.rotate(random(PI));
-      //    pos.add(vel);
-      //    pos.add(vel);
-      //  }
-      }
+    }
     
     if (feeler.x > width || feeler.x - hSize*.5 < 0 || feeler.y + hSize*.5 > height || feeler.y - hSize*.5 < 0) {
       vel.rotate(random(PI-HALF_PI, PI+HALF_PI));
@@ -107,65 +92,45 @@ class Actor implements ActorI { //<>//
     line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }
- 
-  //Persuit Steering---------------
-  
-  PVector persue(PVector target){
-  
-    PVector t = target.copy();
-    PVector desired = t.sub(pos);
-    float speed = maxSpeed;
-        
-    desired.setMag(speed);
-    PVector steer = desired.sub(vel);
-    steer.limit(maxForce);
-    return steer;
-  }
-  
-  //Flee Steering -----------------
-  
-  PVector flee(PVector target){  
-    PVector t = target.copy();
-    PVector desired = t.sub(pos);
-    desired.mult(-1);
-    float speed = maxSpeed;
-        
-    desired.setMag(speed);
-    PVector steer = desired.sub(vel);
-    steer.limit(maxForce);
-    //steer.rotate(PI);
-    return steer;
-  }
-  
-  //Arrive Steering ----------------
-  
-  PVector arrive(PVector target) {
-    PVector t = target.copy();
-    PVector desired = t.sub(pos);
-    float d = desired.mag();
-    float speed = maxSpeed;
-    
-    if (d < 100) {
-      speed = map(d, 0, 100, 0, maxSpeed);
+   
+ PVector seek(PVector target) {
+    PVector steer; // The steering vector
+    PVector desired = PVector.sub(target, pos); // A vector pointing from current location to the target
+    float distance = mag2(desired); // Distance from the target is the magnitude of the vector
+    // If the distance is greater than 0, calc steering (otherwise return zero vector)
+    if (distance > 0) {     
+      desired.normalize(); // Normalize desired
+      desired.mult(maxForce);
+      steer = PVector.sub(desired, vel); // Steering = Desired minus Velocity
     }
-    
-    desired.setMag(speed);
-    PVector steer = desired.sub(vel);
-    steer.limit(maxForce);
+    else {
+      steer = new PVector(0, 0);
+    }
+    return steer;
+  }
+
+  PVector flee(PVector target) {
+    PVector steer; // The steering vector
+    PVector desired = PVector.sub(target, pos); // A vector pointing from current location to the target
+    float distance = mag2(desired); // Distance from the target is the magnitude of the vector
+    // If the distance is greater than 0, calc steering (otherwise return zero vector)
+    if (distance > 0 && distance < (hSize*100)*(hSize*100)) {
+      desired.normalize(); // Normalize desired
+      desired.mult(maxForce);
+      steer = PVector.sub(vel, desired); // Steering = Desired minus Velocity
+    }
+    else {
+      steer = new PVector(0, 0);
+    }
     return steer;
   }
   
-  PVector follow(PVector target){return target;}
-  
-  PVector wander(PVector target){return target;}
-  
-  PVector flock(PVector target){
-    
-    PVector t = target.copy();
-    PVector desired = t.sub(pos);
-    PVector steer = desired.setMag(maxSpeed);
-    
+  PVector pursue(PVector target) {
+    PVector steer = new PVector();
+    steer = PVector.sub(target, pos);
+    steer.mult(maxForce);
     return steer;
   }
   
+
 }
