@@ -49,17 +49,15 @@ class Zombie extends Actor{
         flock(z.pos);
       }
    }
-      
-       
+    
     stack();
-  
-  }
+   }
   
   void show() {
+    super.show(c);
     if(victim != null){
       line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
     }
-    super.show(c);
   }
   
   void bite() {
@@ -112,8 +110,5 @@ class Zombie extends Actor{
      } 
      
   void die(){
-  }
-  
-
-
+  } 
 }

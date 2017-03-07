@@ -6,13 +6,14 @@ class Shotgun extends Hero{
   Shotgun(){
     super();
     targets = new ArrayList<Zombie>();
-     fireRange = 180;
-     c = color(1,150,200);
-     lastShot = 900;
+    fireRange = 180;
+    c = color(1,150,200);
+    lastShot = 900;
      
   }
   
   void shoot() {
+    while(targets.size() < 4){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         if (d < fireRange) {
@@ -22,10 +23,12 @@ class Shotgun extends Hero{
             //break;
         }
       }
-      if(targets.size()>0){
-        for(int j = targets.size()-1; j<= 0; j--){
-        super.kill(targets.get(j));
-        }
+    }
+      
+    if(targets.size()>0){
+      for(int j = targets.size()-1; j<= 0; j--){
+      super.kill(targets.get(j));
       }
     }
   }
+}

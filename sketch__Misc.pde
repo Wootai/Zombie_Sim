@@ -1,6 +1,5 @@
 
 //DeltaTime Function
-
 float deltaTime(float lastTime){
    return millis() - lastTime;
 }
@@ -11,14 +10,12 @@ void hud(){
   text("Commons: " + str(commons.size()), 10, height - 39);
   text("Heroes: " + str(heroes.size()), 10, height - 26);
   text("Zombies: " + str(zombies.size()), 10, height - 13);
-
 }
 
-//Resets sim when zombies or Heroes are all dead
+//Resets sim when zombies or humans are all dead
 void score(){
   if (commons.size() == 0)  {zwincount++; setup();}
-  if (zombies.size() == 0) {hwincount++; setup();}
-  
+  if (zombies.size() == 0) {hwincount++; setup();} 
 }
 
 void vectorLine(PVector V1, PVector V2){

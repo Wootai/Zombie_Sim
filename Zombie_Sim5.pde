@@ -62,14 +62,9 @@ void setup() {
   }
     heroes.add(h);  //<>//
   }  //<>//
-}
- //<>//
-
+} //<>//
 
 void draw() {
-  //println(frameRate/1000);
-  
-  //now = millis();
    
     background(51);
     score();
@@ -81,15 +76,10 @@ void draw() {
     fill(255);
     hud();
   
-  //while(deltaTime(lastTime) < 60){
-  //  deltaTime(lastTime);
-  //}
-  //lastTime = now;
   
 }
 
 void update() {
-  
   for (Actor c : commons) {
     c.update();
   }
@@ -101,7 +91,6 @@ void update() {
   for (int i = zombies.size()-1; i >= 0; i--) { //Go through the zombie array backwards.
     zombies.get(i).update();
   }
-
 }
 
 void display() {

@@ -41,7 +41,7 @@ class Boomer extends Zombie{
       
     }
     
-    else{super.show();}
+    else{super.show();}    
     
     }
 }
