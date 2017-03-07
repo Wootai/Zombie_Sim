@@ -19,11 +19,10 @@ ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
-boolean paused;
+boolean paused = false;
 
 
 void setup() {
-  paused = false;
   frameRate(60);
   size(1200, 800, P2D);
 

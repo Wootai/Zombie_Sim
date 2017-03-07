@@ -25,4 +25,8 @@ void keyPressed(){
  if(key == 'p'){
    paused = !paused;
  }
+ if(key == 'r'){
+   setup();
+ }
+ 
 }
