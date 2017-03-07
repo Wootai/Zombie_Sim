@@ -66,34 +66,16 @@ class Actor implements ActorI { //<>//
     }
     
     for(Obstacle o: obstacles){
-      
       if (feeler.x > o.x && feeler.x < o.maxX
             && feeler.y  > o.y && pos.y < o.maxY){
               flee(feeler);
-            //PVector t = feeler.copy();
-            //PVector desired = t.mult(-1);
-            //PVector steer = desired.sub(vel);
-            //println(pos.x + " " + pos.y);
-            //vel.add(steer);          
         }
-        
-
-      
-      //if (pos.x > o.x - hSize * 2 && pos.x < o.maxX + hSize * 2
-      //      && pos.y  > o.y - hSize * 2 && pos.y < o.maxY + hSize * 2){ 
-      //    vel.rotate(random(PI));
-      //    pos.add(vel);
-      //    pos.add(vel);
-      //  }
       }
     
     if (feeler.x > width || feeler.x - hSize*.5 < 0 || feeler.y + hSize*.5 > height || feeler.y - hSize*.5 < 0) {
       vel.rotate(random(PI-HALF_PI, PI+HALF_PI));
       pos.add(vel);
-      //pos.add(vel);
     }
-
-
   }
 
   void show(color c) {
@@ -103,7 +85,6 @@ class Actor implements ActorI { //<>//
     ellipse(pos.x, pos.y, hSize, hSize);
     
     ellipse(feeler.x, feeler.y, 5, 5);
-    //rect(pos.x, pos.y-hSize*.5, vel.mag()*20, hSize);
     line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }

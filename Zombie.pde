@@ -15,41 +15,23 @@ class Zombie extends Actor{
    maxForce = .2;
   }
      
-  void update() { //<>// //<>//
+  void update() {  //<>//
     
     super.update();
     
     if(prevMinDist == mindDist){mindDist=height*width;}
-        
-    // Moving the zombie towards its closest pray
-    for (int i = commons.size()-1; i>=0; i--){
-      d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
-      if (d < mindDist) {
-        mindDist = d;
-        victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
-      }
-    }
-    
-    for (int i = heroes.size()-1; i>= 0; i--){
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>//
-      if (d < mindDist) {
-        mindDist = d;
-        victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
-      }
-    }
-    
-    vel.add(super.persue(victim));
+     //<>//
+    vel.add(super.persue(getPrey()));
     pos.add(vel);
     prevMinDist = mindDist;
    
-    bite();
     for (Zombie z: zombies){
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*20){
-        line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
+        //ellipse(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
         flock(z.pos);
       }
    }
-    
+    bite();
     stack();
    }
   
@@ -79,8 +61,8 @@ class Zombie extends Actor{
     }
 
   void zombifie(Object o){
-     z = new Zombie();
      if(o instanceof Common && !(o instanceof Hero) ){
+       z = new Zombie();
        z.pos.x = commons.get(commons.indexOf(o)).pos.x;
        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
        zombies.add(z);
@@ -89,6 +71,7 @@ class Zombie extends Actor{
      }
 
      if(o instanceof Hero){
+       z = new Boomer();
        z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
        z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
        zombies.add(z);
@@ -110,5 +93,25 @@ class Zombie extends Actor{
      } 
      
   void die(){
-  } 
+  }
+
+  PVector getPrey(){
+    for (int i = commons.size()-1; i>=0; i--){
+      d = dist(commons.get(i).pos.x, commons.get(i).pos.y, pos.x, pos.y);
+      if (d < mindDist) {
+        mindDist = d;
+        victim = new PVector(commons.get(i).pos.x, commons.get(i).pos.y);
+      }
+    }
+    
+    for (int i = heroes.size()-1; i>= 0; i--){
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); 
+      if (d < mindDist) {
+        mindDist = d;
+        victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
+      }
+    }
+    return victim;
+  }
+  
 }
