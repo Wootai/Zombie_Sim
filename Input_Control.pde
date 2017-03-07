@@ -1,6 +1,6 @@
 void mouseReleased(){
    if (mouseButton == LEFT){
-     h = new Shotgun();
+     h = new Hero();
      h.pos.x = mouseX;
      h.pos.y = mouseY;
      heroes.add(0, h);
@@ -19,4 +19,10 @@ void mouseReleased(){
     c.pos.y = mouseY;
     commons.add(c);
    }
+}
+
+void keyPressed(){
+ if(key == 'p'){
+   paused = !paused;
+ }
 }

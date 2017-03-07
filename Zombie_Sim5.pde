@@ -19,7 +19,11 @@ ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
+boolean paused;
+
+
 void setup() {
+  paused = false;
   frameRate(60);
   size(1200, 800, P2D);
 
@@ -60,22 +64,27 @@ void setup() {
   }  //<>//
 }
  //<>//
+
+
 void draw() {
   //println(frameRate/1000);
-  background(51);
   
-  now = millis();
-
-  score();
-  update();
-  display();
-  fill(255);
-  hud();
+  //now = millis();
+   
+    background(51);
+    score();
+    if(!paused)
+     {
+       update();
+     }
+    display();
+    fill(255);
+    hud();
   
-  while(deltaTime(lastTime) < 60){
-    deltaTime(lastTime);
-  }
- lastTime = now;
+  //while(deltaTime(lastTime) < 60){
+  //  deltaTime(lastTime);
+  //}
+  //lastTime = now;
   
 }
 
