@@ -11,7 +11,7 @@ class Hero extends Common{
   Hero(){
     super();
     killCount = 0;
-    shootTime = 500; // Number of milliseconds between shots.
+    shootTime = 750; // Number of milliseconds between shots.
     moveSpeed = 0.6; 
     c = color(255,0,0);
     lastShot = millis();
