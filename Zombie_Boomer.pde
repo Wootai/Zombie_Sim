@@ -7,7 +7,7 @@ class Boomer extends Zombie{
     hSize = 15;
     c = color(0, 175, 50);
     exploding = false;
-    maxForce = .1;
+    maxForce = .8;
   }
   
   void die(){

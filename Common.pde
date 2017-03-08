@@ -8,24 +8,23 @@
   Common(){
    c = color(255,255,0);
    runDist = 10*hSize;
-   maxForce = 10;
+   maxForce = 5;
+
    minDist = width*height;
 
   }
   
   void update(){
-    
+    acc.mult(0);
     super.update();
     
-    for (int i = zombies.size()-1; i>=0; i--){
-      d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-      if (d < runDist) {
-        flee = zombies.get(i).pos;
-        vel.add(flee(flee));
-      }
-    }
-    
-   
+    //for (int i = zombies.size()-1; i>=0; i--){
+    //  println(acc);
+    //  acc.add(flee(zombies.get(i).pos));
+    //}
+   PVector flee = evade(zombies);
+   acc.add(flee);
+   vel.add(acc);
    pos.add(vel);
   }
   
