@@ -9,6 +9,7 @@
    c = color(255,255,0);
    runDist = 10*hSize;
    maxForce = 5;
+
    minDist = width*height;
 
   }

@@ -13,6 +13,7 @@ class Zombie extends Actor{
    super();
    maxSpeed = 1.2;
    maxForce = 1.2;
+
   }
      
   void update() { //<>//
@@ -32,6 +33,7 @@ class Zombie extends Actor{
     
     for (int i = heroes.size()-1; i>= 0; i--){
       d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>// //<>//
+
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);
@@ -39,6 +41,7 @@ class Zombie extends Actor{
     }
     
     vel.add(super.seek(victim));
+
     pos.add(vel);
     prevMinDist = mindDist;
    
@@ -47,6 +50,7 @@ class Zombie extends Actor{
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*5){
         //line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
         //flock(z.pos);
+
       }
    }
       
@@ -114,6 +118,5 @@ class Zombie extends Actor{
   void die(){
   }
   
-
 
 }

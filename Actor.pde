@@ -17,8 +17,11 @@ class Actor implements ActorI {  //<>// //<>//
   boolean obsValid = false;
   float runDist;
 
+  float mass; // will equal 1 for now
+  PVector pos; //position same
   float maxForce; //Maximum Force
   float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
+  PVector vel; //Direction
   PVector feeler; // feeler vector for collision detection
   
 
@@ -31,6 +34,7 @@ class Actor implements ActorI {  //<>// //<>//
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
     feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
     acc = new PVector();
+
 
     
     while(!obsValid){
@@ -53,6 +57,7 @@ class Actor implements ActorI {  //<>// //<>//
     feeler.x = pos.x+vel.x*20;
     feeler.y = pos.y+vel.y*20;
 
+
     if (feeler.x > width) {
       pos.x = width-hSize+1;
     }
@@ -73,13 +78,13 @@ class Actor implements ActorI {  //<>// //<>//
               flee(feeler);          
             }
           }
+
     
     if (feeler.x > width || feeler.x - hSize*.5 < 0 || feeler.y + hSize*.5 > height || feeler.y - hSize*.5 < 0) {
       vel.rotate(random(PI-HALF_PI, PI+HALF_PI));
       pos.add(vel);
       //pos.add(vel);
     }
-
 
   }
 
@@ -89,7 +94,7 @@ class Actor implements ActorI {  //<>// //<>//
     fill(c);
     ellipse(pos.x, pos.y, hSize, hSize);    
     ellipse(feeler.x, feeler.y, 5, 5);
-    line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
+   line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }
    
@@ -138,5 +143,6 @@ class Actor implements ActorI {  //<>// //<>//
     }
     return steer;
   }
+
 
 }

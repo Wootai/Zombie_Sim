@@ -2,6 +2,7 @@ float cstart = 1;   //<>//
 float hstart = 1;   //<>//
 float zstart = 1;   //<>//
 
+
 float obStart = 4;
 
 int hwincount = 0;
@@ -60,6 +61,7 @@ void setup() {
   }   //<>//
 }
   //<>//
+
 void draw() {
   //println(frameRate/1000);
   background(51);
