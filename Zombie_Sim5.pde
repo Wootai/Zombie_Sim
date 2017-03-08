@@ -30,38 +30,7 @@ void setup() {
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
   obstacles = new ArrayList<Obstacle>();
-  
-   for(int i = 0; i < obStart; i++){
-    o = new Obstacle(random(150, width-150), random(125, height-125), random(50, 150), random(25, 125));
-    obstacles.add(o);
-   }
-   
-   for (int i = 0; i < zstart; i++) {
-    if(i % 10 == 0){
-      z = new Boomer();
-    }
-    else{
-      z = new Zombie();
-    }
-    zombies.add(z);
-
-  }
-
-  for (int i = 0; i < cstart; i++) {
-    c = new Common();
-    commons.add(c);
-  }
-
-  for (int i = 1; i < hstart+1; i++) {
-    if(i % 3 == 0){
-    h = new Sniper();
-    }  //<>//
-    else{  //<>//
-    h = new Hero();
-  }
-    heroes.add(h);  //<>//
-  }  //<>//
-
+  fillArrays(); //<>// //<>// //<>// //<>//
 } //<>//
 
 void draw() {

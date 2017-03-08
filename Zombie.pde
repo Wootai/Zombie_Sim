@@ -12,22 +12,16 @@ class Zombie extends Actor{
   Zombie(){
    super();
    maxSpeed = 1.2;
-<<<<<<< HEAD
    maxForce = 1.2;
   }
      
-  void update() { //<>//
-=======
-   maxForce = .2;
-  }
+ //<>//
      
   void update() {  //<>//
->>>>>>> be3b1b0d3f9ea38cc72de2e270021847fa649fbb
     
     super.update();
     
     if(prevMinDist == mindDist){mindDist=height*width;}
-<<<<<<< HEAD
         
     // Moving the zombie towards its closest pray
     for (int i = commons.size()-1; i>=0; i--){
@@ -62,23 +56,7 @@ class Zombie extends Actor{
     stack();
   
   }
-=======
-     //<>//
-    vel.add(super.persue(getPrey()));
-    pos.add(vel);
-    prevMinDist = mindDist;
-   
-    for (Zombie z: zombies){
-      if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*20){
-        //ellipse(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
-        flock(z.pos);
-      }
-   }
-    bite();
-    stack();
-   }
->>>>>>> be3b1b0d3f9ea38cc72de2e270021847fa649fbb
-  
+       //<>//
   void show() {
     if(victim != null){
       line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
@@ -108,13 +86,9 @@ class Zombie extends Actor{
     }
 
   void zombifie(Object o){
-<<<<<<< HEAD
-     z = new Zombie();
-     if(o instanceof Common && !(o instanceof Hero) ){
-=======
+
      if(o instanceof Common && !(o instanceof Hero) ){
        z = new Zombie();
->>>>>>> be3b1b0d3f9ea38cc72de2e270021847fa649fbb
        z.pos.x = commons.get(commons.indexOf(o)).pos.x;
        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
        zombies.add(z);
@@ -145,13 +119,9 @@ class Zombie extends Actor{
      } 
      
   void die(){
-<<<<<<< HEAD
   }
-  
 
 
-=======
-  }
 
   PVector getPrey(){
     for (int i = commons.size()-1; i>=0; i--){
@@ -171,6 +141,4 @@ class Zombie extends Actor{
     }
     return victim;
   }
-  
->>>>>>> be3b1b0d3f9ea38cc72de2e270021847fa649fbb
 }

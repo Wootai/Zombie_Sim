@@ -12,6 +12,9 @@ class Actor implements ActorI { //<>// //<>//
   float maxForce; //Maximum Force
   float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
   PVector feeler; // feeler vector for collision detection
+  boolean obsValid = false;
+  float hSize;
+  float d;
   
 
   Actor() {
@@ -22,6 +25,7 @@ class Actor implements ActorI { //<>// //<>//
     vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
     feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
+    hSize = 10;
     
     while(!obsValid){
       for(Obstacle o: obstacles){
@@ -117,4 +121,6 @@ class Actor implements ActorI { //<>// //<>//
     PVector steer = new PVector();
     steer = PVector.sub(target, pos);
     steer.mult(maxForce);
-    return steer;}
+    return steer;
+  }
+}
