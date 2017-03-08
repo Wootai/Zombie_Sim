@@ -14,14 +14,15 @@
   }
   
   void update(){
-    //acc.set(0,0,0);
+    acc.mult(0);
     super.update();
     
-    for (int i = zombies.size()-1; i>=0; i--){
-      println(acc);
-      acc.add(flee(zombies.get(i).pos));
-    }
-    
+    //for (int i = zombies.size()-1; i>=0; i--){
+    //  println(acc);
+    //  acc.add(flee(zombies.get(i).pos));
+    //}
+   PVector flee = evade(zombies);
+   acc.add(flee);
    vel.add(acc);
    pos.add(vel);
   }

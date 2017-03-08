@@ -1,4 +1,4 @@
-class Actor implements ActorI {  //<>//
+class Actor implements ActorI {  //<>// //<>//
   
   float mass;
   float energy;
@@ -87,10 +87,8 @@ class Actor implements ActorI {  //<>//
     stroke(0);
     strokeWeight(1);
     fill(c);
-    ellipse(pos.x, pos.y, hSize, hSize);
-    
+    ellipse(pos.x, pos.y, hSize, hSize);    
     ellipse(feeler.x, feeler.y, 5, 5);
-    //rect(pos.x, pos.y-hSize*.5, vel.mag()*20, hSize);
     line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }
@@ -114,12 +112,12 @@ class Actor implements ActorI {  //<>//
   PVector flee(PVector target) {
     PVector steer; // The steering vector
     PVector desired = PVector.sub(target, pos); // A vector pointing from current location to the target
-    float distance = mag2(desired); // Distance from the target is the magnitude of the vector
+    float distance = PVector.dist(pos, target); // Distance from the target is the magnitude of the vector
     // If the distance is greater than 0, calc steering (otherwise return zero vector)
-    if (distance < runDist) {
+    if (distance <= runDist) {
       desired.normalize(); // Normalize desired
       desired.mult(maxForce);
-      steer = PVector.sub(vel, desired); // Steering = Desired minus Velocity
+      steer = PVector.sub(desired, vel); // Steering = Desired minus Velocity
     }
     else {
       steer = new PVector(0, 0);
@@ -127,5 +125,18 @@ class Actor implements ActorI {  //<>//
     return steer;
   }
   
+  PVector evade(ArrayList zombies) {
+    PVector steer = new PVector();
+    for (int i = 0; i < zombies.size(); i++) {
+      Zombie z = (Zombie) zombies.get(i);
+      float distance = PVector.dist(pos, z.pos);
+      if (distance < runDist) {
+        steer = flee(z.pos);
+        steer.mult(maxForce);
+        return steer;
+      }
+    }
+    return steer;
+  }
 
 }

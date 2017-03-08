@@ -1,6 +1,6 @@
-float cstart = 1;  //<>// //<>//
-float hstart = 1;  //<>// //<>//
-float zstart = 1;  //<>// //<>//
+float cstart = 1;   //<>//
+float hstart = 1;   //<>//
+float zstart = 1;   //<>//
 
 float obStart = 4;
 
@@ -27,12 +27,12 @@ void setup() {
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>();
   obstacles = new ArrayList<Obstacle>();
-  
+
    for(int i = 0; i < obStart; i++){
     o = new Obstacle(random(150, width-150), random(125, height-125), random(50, 150), random(25, 125));
     obstacles.add(o);
    }
-   
+
    for (int i = 0; i < zstart; i++) {
     if(i % 10 == 0){
       z = new Boomer();
@@ -52,18 +52,18 @@ void setup() {
   for (int i = 1; i < hstart+1; i++) {
     if(i % 3 == 0){
     h = new Sniper();
-    }  //<>// //<>//
-    else{  //<>// //<>//
+    }   //<>//
+    else{   //<>//
     h = new Hero();
   }
-    heroes.add(h);  //<>// //<>//
-  }  //<>// //<>//
+    heroes.add(h);   //<>//
+  }   //<>//
 }
- //<>// //<>//
+  //<>//
 void draw() {
   //println(frameRate/1000);
   background(51);
-  
+
   now = millis();
 
   score();
@@ -71,16 +71,16 @@ void draw() {
   display();
   fill(255);
   hud();
-  
+
   while(deltaTime(lastTime) < 60){
     deltaTime(lastTime);
   }
  lastTime = now;
-  
+
 }
 
 void update() {
-  
+
   for (Actor c : commons) {
     c.update();
   }
@@ -88,7 +88,7 @@ void update() {
   for (int i = heroes.size()-1; i>=0; i--) {
     heroes.get(i).update();
   }
-  
+
   for (int i = zombies.size()-1; i >= 0; i--) { //Go through the zombie array backwards.
     zombies.get(i).update();
   }
@@ -99,7 +99,7 @@ void display() {
   for (Obstacle o : obstacles){
     o.show();
   }
-  
+
   for (Common c : commons) {
     c.show();
   }
