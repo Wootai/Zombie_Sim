@@ -20,3 +20,13 @@ void mouseReleased(){
     commons.add(c);
    }
 }
+
+void keyPressed(){
+ if(key == 'p'){
+   paused = !paused;
+ }
+ if(key == 'r'){
+   setup();
+ }
+ 
+}

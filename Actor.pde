@@ -9,13 +9,6 @@ class Actor implements ActorI { //<>// //<>//
   float wdelta; // Wander delta
   int action; // Current action
   int prey; // Predator's target
-  
-  float hSize = 10;
-  color c = color(0, 0, 255);
-  float r1;
-  float d;
-  boolean obsValid = false;
-
   float maxForce; //Maximum Force
   float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
   PVector feeler; // feeler vector for collision detection
@@ -29,7 +22,6 @@ class Actor implements ActorI { //<>// //<>//
     vel = PVector.random2D();
     pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
     feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
-
     
     while(!obsValid){
       for(Obstacle o: obstacles){
@@ -48,8 +40,7 @@ class Actor implements ActorI { //<>// //<>//
 
   void update() {
     
-    feeler.x = pos.x+vel.x*20;
-    feeler.y = pos.y+vel.y*20;
+    feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
 
     if (feeler.x > width) {
       pos.x = width-hSize+1;
@@ -75,11 +66,8 @@ class Actor implements ActorI { //<>// //<>//
     if (feeler.x > width || feeler.x - hSize*.5 < 0 || feeler.y + hSize*.5 > height || feeler.y - hSize*.5 < 0) {
       vel.rotate(random(PI-HALF_PI, PI+HALF_PI));
       pos.add(vel);
-      //pos.add(vel);
+      }
     }
-
-
-  }
 
   void show(color c) {
     stroke(0);
@@ -129,8 +117,4 @@ class Actor implements ActorI { //<>// //<>//
     PVector steer = new PVector();
     steer = PVector.sub(target, pos);
     steer.mult(maxForce);
-    return steer;
-  }
-  
-
-}
+    return steer;}

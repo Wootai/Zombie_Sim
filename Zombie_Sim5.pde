@@ -19,6 +19,9 @@ ArrayList<Hero> heroes;
 ArrayList<Zombie> zombies;
 ArrayList<Obstacle> obstacles;
 
+boolean paused = false;
+
+
 void setup() {
   frameRate(60);
   size(1200, 800, P2D);
@@ -58,20 +61,21 @@ void setup() {
   }
     heroes.add(h);  //<>//
   }  //<>//
-}
- //<>//
-void draw() {
-  //println(frameRate/1000);
-  background(51);
-  
-  now = millis();
 
-  score();
-  update();
-  display();
-  fill(255);
-  hud();
-  
+} //<>//
+
+void draw() {
+   
+    background(51);
+    score();
+    if(!paused)
+     {
+       update();
+     }
+    display();
+    fill(255);
+    hud();
+    
   while(deltaTime(lastTime) < 60){
     deltaTime(lastTime);
   }
@@ -80,7 +84,6 @@ void draw() {
 }
 
 void update() {
-  
   for (Actor c : commons) {
     c.update();
   }
@@ -92,7 +95,6 @@ void update() {
   for (int i = zombies.size()-1; i >= 0; i--) { //Go through the zombie array backwards.
     zombies.get(i).update();
   }
-
 }
 
 void display() {

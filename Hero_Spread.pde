@@ -13,6 +13,7 @@ class Shotgun extends Hero{
   }
   
   void shoot() {
+    while(targets.size() < 4){
       for (int i = zombies.size() - 1; i >= 0; i--) {
         d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y); 
         if (d < fireRange) {
@@ -20,12 +21,13 @@ class Shotgun extends Hero{
             super.kill(zombies.get(i));
             lastShot = millis();
             //break;
-        }
+       }
       }
-      if(targets.size()>0){
-        for(int j = targets.size()-1; j<= 0; j--){
-        super.kill(targets.get(j));
-        }
+    }
+    if(targets.size()>0){
+      for(int j = targets.size()-1; j<= 0; j--){
+      super.kill(targets.get(j));
       }
     }
   }
+}
