@@ -9,7 +9,6 @@ class Shotgun extends Hero{
      fireRange = 180;
      c = color(1,150,200);
      lastShot = 900;
-     
   }
   
   void shoot() {
@@ -24,6 +23,7 @@ class Shotgun extends Hero{
        }
       }
     }
+
     if(targets.size()>0){
       for(int j = targets.size()-1; j<= 0; j--){
       super.kill(targets.get(j));

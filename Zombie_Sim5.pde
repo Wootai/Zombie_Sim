@@ -1,6 +1,6 @@
-float cstart = 100;  //<>//
+float cstart = 1;   //<>//
 float hstart = 10;  //<>//
-float zstart = 15;  //<>//
+float zstart = 15;   //<>//
 
 float obStart = 4;
 
@@ -11,6 +11,7 @@ Common c;
 Hero h;
 Zombie z;
 Obstacle o;
+
 float now = millis();
 float lastTime;
 
@@ -28,10 +29,11 @@ void setup() {
 
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
-  zombies = new ArrayList<Zombie>();
-  obstacles = new ArrayList<Obstacle>();
-  fillArrays(); //<>// //<>// //<>// //<>//
-} //<>//
+  zombies = new ArrayList<Zombie>(); 
+  obstacles = new ArrayList<Obstacle>();  //<>// //<>// //<>// //<>//
+  fillArrays();  //<>//
+
+} 
 
 void draw() {
    

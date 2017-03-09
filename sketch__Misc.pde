@@ -49,7 +49,7 @@ void fillArrays(){
       z = new Boomer();
     }
     else{
-      z = new Zombie();
+      z = new Boomer();
     }
     zombies.add(z);
 

@@ -58,9 +58,6 @@ class Zombie extends Actor{
   }
        //<>//
   void show() {
-    if(victim != null){
-      line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
-    }
     super.show(c);
     if(victim != null){
       line(pos.x, pos.y, victim.x, victim.y);//Debug line between Zombie and Victim
@@ -93,7 +90,6 @@ class Zombie extends Actor{
        z.pos.y = commons.get(commons.indexOf(o)).pos.y;
        zombies.add(z);
        commons.remove(commons.indexOf(o));
-      
      }
 
      if(o instanceof Hero){
@@ -114,14 +110,12 @@ class Zombie extends Actor{
          if (d < hSize+1) {
            zombies.get(i).vel.rotate(random(PI*3/4, PI*5/4));
            zombies.get(i).pos.add(zombies.get(i).vel);
-         }
-       } 
-     } 
+       }
+    } 
+  } 
      
   void die(){
   }
-
-
 
   PVector getPrey(){
     for (int i = commons.size()-1; i>=0; i--){
