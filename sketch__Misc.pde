@@ -62,10 +62,10 @@ void fillArrays(){
 
   for (int i = 1; i < hstart+1; i++) {
     if(i % 3 == 0){
-    z = new Sniper();
+    h = new Sniper();
     } 
     else{ 
-    z = new Hero();
+    h = new Hero();
   }
     heroes.add(h); 
   } 
