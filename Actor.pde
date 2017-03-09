@@ -75,7 +75,6 @@ class Actor implements ActorI {
     ellipse(pos.x, pos.y, hSize, hSize);
     
     ellipse(feeler.x, feeler.y, 5, 5);
-    //rect(pos.x, pos.y-hSize*.5, vel.mag()*20, hSize);
     line(pos.x, pos.y, pos.x+vel.x*20, pos.y+vel.y*20);
 
   }
