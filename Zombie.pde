@@ -15,9 +15,9 @@ class Zombie extends Actor{
    maxForce = 1.2;
   }
      
- //<>//
+ 
      
-  void update() {  //<>//
+  void update() {  
     
     super.update();
     
@@ -56,7 +56,6 @@ class Zombie extends Actor{
     stack();
   
   }
-       //<>//
   void show() {
     super.show(c);
     if(victim != null){
