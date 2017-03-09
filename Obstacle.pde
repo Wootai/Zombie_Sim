@@ -3,6 +3,7 @@ class Obstacle{
     float x, y, len, wid;
     float maxX;
     float maxY;
+    PVector pos; 
     
     PVector topLeft, topRight, bottomLeft, bottomRight;
   
@@ -17,7 +18,7 @@ class Obstacle{
      topRight = new PVector(maxX, y);
      bottomLeft = new PVector(x, maxY);
      bottomRight = new PVector(maxX, maxY);
-     
+     pos = new PVector(x, y);
  }
    
    void show(){

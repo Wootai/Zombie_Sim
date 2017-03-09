@@ -1,10 +1,12 @@
-float cstart = 1;   // Start Common Human 
-float hstart = 10;  // Start Hero Human 
+float cstart = 40;   // Start Common Human 
+float hstart = 0;  // Start Hero Human 
 float zstart = 15;  // Start Zombies 
 float obStart = 4;  // Start Obsticles
 
 int hwincount = 0;  // Human Win counter
 int zwincount = 0;  // Zombie Win counter
+
+PVector pos;
 
 Common c;           // Global Common             
 Hero h;             // Global Hero
@@ -44,7 +46,7 @@ void draw() {
 }
 
 void update() {
-  for (Actor c : commons) {
+  for (Common c : commons) {
     c.update();
   }
 

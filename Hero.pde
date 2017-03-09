@@ -1,17 +1,16 @@
 class Hero extends Common{
    
   color c = color(255,0,0);
-  float killCount;
+  float killCount; // Number of zombies killed
   float fireRange; // distance it can kill zombies at.
   float shootTime; // Number of milliseconds between shots.
-  float moveSpeed; 
-  float lastShot;
-  
+  float moveSpeed; // Heroes are slower than commons.
+  float lastShot;  // Last time the Hero shot
    
   Hero(){
     super();
     killCount = 0;
-    shootTime = 500; // Number of milliseconds between shots.
+    shootTime = 750; // Number of milliseconds between shots.
     moveSpeed = 0.6; 
     c = color(255,0,0);
     lastShot = millis();
@@ -24,6 +23,7 @@ class Hero extends Common{
    
   void update(){
     super.update();
+    
     vel.setMag(moveSpeed);
  
     if(deltaTime(lastShot) > shootTime){
@@ -56,7 +56,6 @@ class Hero extends Common{
       strokeWeight(4);
       line(Z.pos.x, Z.pos.y, pos.x, pos.y);
       Z.die();
-      zombies.remove(Z);
       killCount++;
   }
   

@@ -47,10 +47,10 @@ void fillArrays(){
    
    for (int i = 0; i < zstart; i++) {
     if(i % 10 == 0){
-      z = new Boomer();
+      z = new Zombie();
     }
     else{
-      z = new Boomer();
+      z = new Zombie();
     }
     zombies.add(z);
   }

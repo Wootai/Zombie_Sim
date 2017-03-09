@@ -17,15 +17,18 @@
     
     super.update();
     
-    for (int i = zombies.size()-1; i>=0; i--){
-      d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
-      if (d < runDist) {
-        flee = zombies.get(i).pos;
-        vel.add(flee(flee));
-      }
-    }
-   
-   pos.add(vel);
+    acc.add(evade(zombies)); 
+    
+    //for (int i = zombies.size()-1; i>=0; i--){
+    //  d = dist(zombies.get(i).pos.x, zombies.get(i).pos.y, pos.x, pos.y);
+    //  if (d < runDist) {
+    //    flee = zombies.get(i).pos;
+    //    vel.add(flee(flee));
+    //  }
+    //}
+    
+    vel.add(acc);
+    pos.add(vel);
   }
   
   void stack() {
@@ -44,9 +47,17 @@
  void show(){
    super.show(c);
  }
-
-  void wander(){ }
-  void evasion(){ }
-  void obstacleAvoidance() { }
-  
+ 
+ PVector evade(ArrayList zombies) {
+    PVector steer = new PVector();
+    for (int i = 0; i < zombies.size(); i++) {
+      Zombie z = (Zombie) zombies.get(i);
+      float dist = PVector.dist(pos, z.pos);
+      if (dist < runDist) {
+        steer = flee(z.pos);
+        return steer;
+      }
+    }
+    return steer;
+  }
 }

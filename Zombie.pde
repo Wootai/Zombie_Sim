@@ -43,6 +43,7 @@ class Zombie extends Actor{
     prevMinDist = mindDist;
    
     bite();
+    
     for (Zombie z: zombies){
       if(dist(z.pos.x, z.pos.y, pos.x, pos.y) < hSize*5){
         //line(pos.x, pos.y, z.pos.x, z.pos.y); //Debug line between Zombies
@@ -90,7 +91,7 @@ class Zombie extends Actor{
      }
 
      if(o instanceof Hero){
-       z = new Boomer();
+       z = new Zombie();
        z.pos.x = heroes.get(heroes.indexOf(o)).pos.x;
        z.pos.y = heroes.get(heroes.indexOf(o)).pos.y;
        zombies.add(z);
@@ -112,6 +113,7 @@ class Zombie extends Actor{
   } 
      
   void die(){
+    zombies.remove(this);
   }
 
   PVector getPrey(){
@@ -131,5 +133,23 @@ class Zombie extends Actor{
       }
     }
     return victim;
+  }
+}
+
+
+
+class deadZombie extends Zombie{
+  PVector pos;
+  
+  deadZombie(PVector pos_){
+     super();
+     pos = pos_;
+  }
+  
+  void update(){
+  }
+  
+  void show(){
+    rect(pos.x - hSize/2, pos.y - hSize/2, hSize, hSize);
   }
 }

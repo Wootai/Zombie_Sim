@@ -13,6 +13,7 @@ class Boomer extends Zombie{
   void die(){
     BoomerExplosion bExplode = new BoomerExplosion(pos);
     zombies.add(bExplode);
+    super.die();
   }
   
   void show(){
