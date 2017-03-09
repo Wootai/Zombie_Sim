@@ -6,6 +6,7 @@ float deltaTime(float lastTime){
 
 //Draws HUD display messages
 void hud(){
+  fill(255);        // Change Fill to white
   text("Zombies " + str(zwincount) + "-" + str(hwincount) + " Humans", 10, 24);
   text("Commons: " + str(commons.size()), 10, height - 39);
   text("Heroes: " + str(heroes.size()), 10, height - 26);
@@ -52,7 +53,6 @@ void fillArrays(){
       z = new Boomer();
     }
     zombies.add(z);
-
   }
 
   for (int i = 0; i < cstart; i++) {
@@ -62,10 +62,10 @@ void fillArrays(){
 
   for (int i = 1; i < hstart+1; i++) {
     if(i % 3 == 0){
-    h = new Sniper();
+    z = new Sniper();
     } 
     else{ 
-    h = new Hero();
+    z = new Hero();
   }
     heroes.add(h); 
   } 

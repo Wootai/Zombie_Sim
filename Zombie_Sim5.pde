@@ -1,57 +1,46 @@
-float cstart = 1;   //<>//
-float hstart = 10;  //<>//
-float zstart = 15;   //<>//
+float cstart = 1;   // Start Common Human 
+float hstart = 10;  // Start Hero Human 
+float zstart = 15;  // Start Zombies 
+float obStart = 4;  // Start Obsticles
 
-float obStart = 4;
+int hwincount = 0;  // Human Win counter
+int zwincount = 0;  // Zombie Win counter
 
-int hwincount = 0;
-int zwincount = 0;
+Common c;           // Global Common             
+Hero h;             // Global Hero
+Zombie z;           // Global Zombie
 
-Common c;
-Hero h;
-Zombie z;
-Obstacle o;
+Obstacle o;         // Global Obstacle
 
-float now = millis();
-float lastTime;
+ArrayList<Common> commons;      // Commons Array
+ArrayList<Hero> heroes;         // Heroes Array
+ArrayList<Zombie> zombies;      // Zombies Array
+ArrayList<Obstacle> obstacles;  // Obstacles Array
 
-ArrayList<Common> commons;
-ArrayList<Hero> heroes;
-ArrayList<Zombie> zombies;
-ArrayList<Obstacle> obstacles;
-
-boolean paused = false;
-
+boolean paused = false;         // Paused State Global Variable
 
 void setup() {
-  frameRate(60);
+  frameRate(60);                // Set framerate to 60fps
   size(1200, 800, P2D);
 
   commons = new ArrayList<Common>();
   heroes = new ArrayList<Hero>();
   zombies = new ArrayList<Zombie>(); 
-  obstacles = new ArrayList<Obstacle>();  //<>// //<>// //<>// //<>//
-  fillArrays();  //<>//
-
-} 
+  obstacles = new ArrayList<Obstacle>();  
+  fillArrays(); 
+}  
 
 void draw() {
    
-    background(51);
-    score();
-    if(!paused)
+    background(51);   // draw background
+    score();          // Check Score
+    if(!paused)       // check for Paused
      {
-       update();
+       update();      // Update if not paused
      }
-    display();
-    fill(255);
-    hud();
+    display();        // Display
+    hud();            // draw Hud
     
-  while(deltaTime(lastTime) < 60){
-    deltaTime(lastTime);
-  }
- lastTime = now;
-  
 }
 
 void update() {

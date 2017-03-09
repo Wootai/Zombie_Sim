@@ -24,7 +24,6 @@
         vel.add(flee(flee));
       }
     }
-    
    
    pos.add(vel);
   }

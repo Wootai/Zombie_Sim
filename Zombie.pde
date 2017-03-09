@@ -15,8 +15,6 @@ class Zombie extends Actor{
    maxForce = 1.2;
   }
      
- 
-     
   void update() {  
     
     super.update();
@@ -33,7 +31,7 @@ class Zombie extends Actor{
     }
     
     for (int i = heroes.size()-1; i>= 0; i--){
-      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y);  //<>// //<>//
+      d = dist(pos.x, pos.y, heroes.get(i).pos.x, heroes.get(i).pos.y); 
       if (d < mindDist) {
         mindDist = d;
         victim = new PVector(heroes.get(i).pos.x, heroes.get(i).pos.y);

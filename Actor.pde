@@ -1,31 +1,26 @@
-class Actor implements ActorI { //<>// //<>//
+class Actor implements ActorI {
   
-  float mass;
-  float energy;
   PVector pos; // Position
   PVector vel; // Velocity
   PVector acc; // Acceleration
-  int type; // Agent type
-  float wdelta; // Wander delta
-  int action; // Current action
-  int prey; // Predator's target
-  float maxForce; //Maximum Force
-  float maxSpeed; // Maximum speed (1 for commons Faster for Zombies)
   PVector feeler; // feeler vector for collision detection
-  boolean obsValid = false;
+
+
+  float maxForce; //Maximum Force that can be applied to an actor
+  float maxSpeed; // Maximum speed, 1 for commons Faster for Zombies
   float hSize;
   float d;
-  
+
+  boolean obsValid = false;
 
   Actor() {
-    mass = 1;
-    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
     maxForce = 1;
     maxSpeed = 1;
-    vel = PVector.random2D();
-    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
-    feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
     hSize = 10;
+
+    pos = new PVector(random(0.05*width, 0.95*width), random(0.05*height, 0.95*height));
+    vel = PVector.random2D();
+    feeler = new PVector(pos.x+vel.x*20, pos.y+vel.y*20);
     
     while(!obsValid){
       for(Obstacle o: obstacles){
